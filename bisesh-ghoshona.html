@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>বিশেষ ঘোষণা — এ হলো ইসলাম</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --blue:        #0288d1;
+  --blue-mid:    #0277bd;
+  --blue-deep:   #01579b;
+  --blue-light:  #4fc3f7;
+  --blue-pale:   #81d4fa;
+  --blue-bg:     #e1f5fe;
+  --blue-card:   #e3f2fd;
+  --border:      #b3e5fc;
+  --white:       #ffffff;
+  --text-dark:   #1a1a1a;
+  --text-mid:    #424242;
+  --text-muted:  #757575;
+  --font:        'Hind Siliguri', sans-serif;
+  --font-ar:     'Noto Naskh Arabic', serif;
+  --shadow-sm:   0 1px 4px rgba(2,136,209,0.10);
+  --shadow-md:   0 4px 18px rgba(2,136,209,0.14);
+  --radius:      8px;
+  --reading-max: 720px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--white); color: var(--text-dark); font-size: 17px; line-height: 1.95; }
+
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-light));
+  width: 0%; z-index: 999; transition: width 0.1s linear;
+}
+
+header {
+  background: var(--white);
+  border-bottom: 2px solid var(--blue);
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+.header-inner { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
+.logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.logo-icon {
+  width: 36px; height: 36px; background: var(--blue); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 15px; font-family: var(--font-ar); flex-shrink: 0;
+}
+.logo-text { font-size: 15px; font-weight: 700; color: var(--blue-deep); }
+
+.header-actions { display: flex; align-items: center; gap: 8px; }
+.font-btn {
+  background: var(--blue-bg); border: 1px solid var(--border); border-radius: 6px;
+  padding: 5px 10px; font-family: var(--font); font-size: 13px; color: var(--blue-deep);
+  cursor: pointer; transition: background .15s;
+}
+.font-btn:hover { background: var(--blue-card); }
+
+.page-layout {
+  max-width: 1100px; margin: 0 auto; padding: 32px 20px;
+  display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: start;
+}
+@media (max-width: 1024px) { .page-layout { grid-template-columns: 220px 1fr; gap: 20px; padding: 24px 16px; } }
+@media (max-width: 900px) { .page-layout { grid-template-columns: 1fr; } }
+
+.sidebar { position: sticky; top: 72px; }
+.sidebar-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+.sidebar-title { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.toc-list { list-style: none; }
+.toc-list li { margin-bottom: 2px; }
+.toc-list a { display: block; padding: 6px 8px; border-radius: 6px; text-decoration: none; color: var(--text-mid); font-size: 13px; line-height: 1.4; transition: background .15s, color .15s; }
+.toc-list a:hover { background: var(--blue-card); color: var(--blue-deep); }
+.toc-list a.current { background: var(--blue); color: #fff; font-weight: 600; }
+.toc-list .ch-num { font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 1px; }
+.toc-list a.current .ch-num { color: rgba(255,255,255,0.75); }
+
+.reading-area { min-width: 0; }
+
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); margin-bottom: 20px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--blue-deep); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb .sep { color: var(--border); }
+
+.chapter-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--blue-card); border: 1px solid var(--border); border-radius: 20px;
+  padding: 4px 14px; font-size: 12px; font-weight: 700; color: var(--blue-deep);
+  margin-bottom: 12px; text-transform: uppercase; letter-spacing: .05em;
+}
+
+.chapter-title { font-size: clamp(22px, 4vw, 34px); font-weight: 700; color: var(--text-dark); line-height: 1.25; margin-bottom: 20px; border-bottom: 3px solid var(--blue); padding-bottom: 16px; }
+
+.reading-stats { display: flex; gap: 20px; margin-bottom: 28px; padding: 12px 16px; background: var(--blue-bg); border: 1px solid var(--border); border-radius: var(--radius); flex-wrap: wrap; }
+.stat { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+.stat strong { color: var(--text-dark); font-size: 13px; }
+
+.article-body { font-family: var(--font); font-size: var(--fs, 17px); line-height: 2; color: var(--text-dark); max-width: var(--reading-max); }
+.article-body p { margin-bottom: 1.3rem; text-align: justify; hyphens: auto; }
+.article-body h2 { font-size: 22px; font-weight: 700; color: var(--blue-deep); margin: 2.5rem 0 1rem; padding-bottom: 8px; border-bottom: 2px solid var(--blue-card); }
+.article-body h3 { font-size: 18px; font-weight: 600; color: var(--blue-mid); margin: 2rem 0 0.75rem; }
+.article-body blockquote { border-left: 4px solid var(--blue); background: var(--blue-bg); padding: 14px 18px; margin: 1.5rem 0; border-radius: 0 var(--radius) var(--radius) 0; font-size: 15px; color: var(--blue-deep); }
+.article-body a { color: var(--blue-deep); }
+.arabic-verse {
+  font-family: var(--font-ar); font-size: 1.35rem; line-height: 2.3;
+  text-align: right; direction: rtl;
+  background: var(--blue-bg); border-right: 4px solid var(--blue);
+  padding: 14px 18px 14px 12px; margin: 1.5rem 0;
+  border-radius: 8px 0 0 8px; color: var(--blue-deep);
+}
+
+.chapter-nav {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  margin-top: 48px; padding-top: 24px; border-top: 2px solid var(--border); flex-wrap: wrap;
+}
+.nav-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--white); border: 2px solid var(--border); border-radius: var(--radius);
+  padding: 10px 18px; text-decoration: none; color: var(--text-mid);
+  font-size: 14px; font-weight: 600; font-family: var(--font);
+  transition: border-color .18s, color .18s, background .18s, transform .15s; cursor: pointer;
+}
+.nav-btn:hover { border-color: var(--blue); color: var(--blue-deep); background: var(--blue-card); transform: translateY(-1px); }
+.nav-btn.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+.nav-btn.primary:hover { background: var(--blue-mid); border-color: var(--blue-mid); color: #fff; }
+.nav-btn .nav-label { font-size: 11px; color: var(--text-muted); display: block; font-weight: 400; }
+.nav-btn.primary .nav-label { color: rgba(255,255,255,0.75); }
+.nav-center { text-align: center; }
+.nav-center a { font-size: 13px; color: var(--text-muted); text-decoration: none; border-bottom: 1px dashed var(--border); }
+.nav-center a:hover { color: var(--blue-deep); }
+
+footer { background: var(--blue-deep); color: rgba(255,255,255,0.85); padding: 24px 20px; text-align: center; margin-top: 40px; font-size: 13px; }
+footer a { color: var(--blue-light); text-decoration: none; }
+
+.fs-sm { --fs: 15px; }
+.fs-md { --fs: 17px; }
+.fs-lg { --fs: 20px; }
+.fs-xl { --fs: 23px; }
+
+.sidebar-toggle {
+  display: none; background: var(--blue-card); border: 1px solid var(--border); border-radius: 6px;
+  padding: 6px 12px; font-family: var(--font); font-size: 13px; color: var(--blue-deep);
+  cursor: pointer; margin-bottom: 16px;
+}
+@media (max-width: 900px) {
+  .sidebar-toggle { display: block; }
+  .sidebar { position: static; }
+  .sidebar.collapsed .sidebar-box:not(:first-child) { display: none; }
+}
+@media (max-width: 600px) {
+  .chapter-title { font-size: 22px; }
+  .reading-stats { gap: 12px; }
+  .chapter-nav { flex-direction: column; }
+  .nav-btn { width: 100%; justify-content: center; }
+  .nav-center { width: 100%; }
+}
+
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">إ</div>
+      <span class="logo-text">এ হলো ইসলাম</span>
+    </a>
+    <div class="header-actions">
+      <button class="font-btn" onclick="changeFont('sm')">ক ছোট</button>
+      <button class="font-btn" onclick="changeFont('md')">ক</button>
+      <button class="font-btn" onclick="changeFont('lg')">ক বড়</button>
+      <button class="font-btn" onclick="changeFont('xl')">ক বড়+</button>
+    </div>
+  </div>
+</header>
+
+<div class="page-layout">
+
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰ সূচীপত্র</button>
+    <div class="sidebar-box">
+      <div class="sidebar-title">প্রথম অধ্যায়</div>
+      <ul class="toc-list">
+<li><a href="sotor-o-sabdhan.html"><span class="ch-num">অধ্যায় ০১</span>সতর্ক ও সাবধান বাণী</a></li>
+<li><a href="mukhobondo.html"><span class="ch-num">অধ্যায় ০২</span>মুখবন্ধ: শাহাদাত</a></li>
+<li><a href="prothom-kotha.html"><span class="ch-num">অধ্যায় ০৩</span>প্রথম কথা</a></li>
+<li><a href="barakah.html"><span class="ch-num">অধ্যায় ০৪</span>বারাকাহ</a></li>
+<li><a href="zayd-ibn-harithah.html"><span class="ch-num">অধ্যায় ০৫</span>যায়েদ ইব্ন হারিসাহ</a></li>
+<li><a href="imamati.html"><span class="ch-num">অধ্যায় ০৬</span>ইমামতি কি শুধু কোরেশীদের?</a></li>
+<li><a href="e-bilal-ke.html"><span class="ch-num">অধ্যায় ০৭</span>এ বেলাল কে?</a></li>
+<li><a href="iman-mumin.html"><span class="ch-num">অধ্যায় ০৮</span>ঈমান ও মু'মিন, কুফর ও কাফের</a></li>
+<li><a href="radi-allah-anhu.html"><span class="ch-num">অধ্যায় ০৯</span>রাদিআল্লাহু আনহুম কারা?</a></li>
+<li><a href="imam-mahdi-dajjal.html"><span class="ch-num">অধ্যায় ১০</span>ইমাম মাহদী ও দাজ্জাল</a></li>
+<li><a href="mujaddid-tajdid.html"><span class="ch-num">অধ্যায় ১১</span>মুজাদ্দিদ ও তাজদীদ</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-box">
+      <div class="sidebar-title">দ্বিতীয় অধ্যায়</div>
+      <ul class="toc-list">
+<li><a href="dik-dorshon.html"><span class="ch-num">অধ্যায় ১২</span>দিক দর্শন — তাওহীদ ও ঈমান</a></li>
+<li><a href="sura-hujurat.html"><span class="ch-num">অধ্যায় ১৩</span>সূরা হুজরাত</a></li>
+<li><a href="sura-mumtahinah.html"><span class="ch-num">অধ্যায় ১৪</span>সূরা মুমতাহিনাহ</a></li>
+<li><a href="sura-tahrim.html"><span class="ch-num">অধ্যায় ১৫</span>সূরা তাহরীম</a></li>
+<li><a href="ke-e-abu-bakr-1.html"><span class="ch-num">অধ্যায় ১৬ (পর্ব ১)</span>কে এ আবু বকর? (১ম পর্ব)</a></li>
+<li><a href="ke-e-abu-bakr-2.html"><span class="ch-num">অধ্যায় ১৬ (পর্ব ২)</span>কে এ আবু বকর? (২য় পর্ব)</a></li>
+<li><a href="ke-e-abu-bakr-3.html"><span class="ch-num">অধ্যায় ১৬ (পর্ব ৩)</span>কে এ আবু বকর? (৩য় পর্ব)</a></li>
+<li><a href="ke-e-abu-bakr-4.html"><span class="ch-num">অধ্যায় ১৬ (পর্ব ৪)</span>কে এ আবু বকর? (৪র্থ পর্ব)</a></li>
+<li><a href="salman-farsi.html"><span class="ch-num">অধ্যায় ১৭</span>সালমান ফার্সী</a></li>
+<li><a href="ihsaner-suful.html"><span class="ch-num">অধ্যায় ১৮</span>ইহসানের সুফল ও বিদআতের কুফল</a></li>
+<li><a href="shamshul-haq.html"><span class="ch-num">অধ্যায় ১৯</span>শামসুল হক ফরীদপুরী</a></li>
+<li><a href="manob-jatir-utso.html"><span class="ch-num">অধ্যায় ২০</span>মানব জাতির উৎস, বিকাশ ও নাশ</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-box">
+      <div class="sidebar-title">পরিশিষ্ট</div>
+      <ul class="toc-list">
+<li><a href="shesh-kotha.html">শেষ কথা, মূল কথা ও আত্মস্বীকৃতি</a></li>
+<li><a href="barakah-foundation.html">বারাকাহ ফাউন্ডেশন</a></li>
+<li><a href="bisesh-ghoshona.html" class="current">বিশেষ ঘোষণা</a></li>
+<li><a href="joruri-gyatobbo.html">জরুরি জ্ঞাতব্য ও প্রমাণ সূত্র</a></li>
+<li><a href="lekhok-porichiti.html">লেখক পরিচিতি</a></li>
+      </ul>
+    </div>
+  </aside>
+  <main class="reading-area">
+    <nav class="breadcrumb">
+      <a href="index.html">হোম</a>
+      <span class="sep">›</span>
+      <a href="index.html#toc">পরিশিষ্ট</a>
+      <span class="sep">›</span>
+      <span>বিশেষ ঘোষণা</span>
+    </nav>
+
+    <div class="chapter-label">পরিশিষ্ট</div>
+    <h1 class="chapter-title">বিশেষ ঘোষণা</h1>
+
+    <div class="reading-stats">
+      <div class="stat">📄 <strong>৪২৯ শব্দ</strong></div>
+      <div class="stat">⏱ <strong>প্রায় ৩ মিনিট</strong> পড়ার সময়</div>
+      <div class="stat">📖 <strong>২৬ / ২৮</strong> অধ্যায়</div>
+    </div>
+
+    <article class="article-body" id="article">
+<p>বিশেষ ঘোষণা মানব এঁক্যের পথে প্রধান বাধা বিশ্বের তিনটি অভিশপ্ত জাতি (১) ইয়াহুদী মুসলমান (২) খৃষ্টান মুসলমান (৩) মোহামেডান মুসলমান ইয়াহুদীরা বলে, আল্লাহ আছেন, তবে ওযাইর আল্লাহর ছেলে । খৃষ্টানরা বলে, আল্লাহ আছেন তবে ঈসা আল্লাহর ছেলে । মোহামেডানরা বলে, আল্লাহ আছেন, তবে “আহাদ” আর “আহমাদ” এর মধ্যে মাত্র একটি “মিম” অক্ষরের তফাত। মিম মুছে ফেললেই “আহ্মাদ” আহাদ” অর্থাৎ আল্লাহ হয়ে যায়। আল্লাহর নূরে মুহাম্মাদ তৈরী, আর নূরে মুহাম্মাদী দিয়ে বিশ্ব সৃষ্টি । মুহাম্মাদ না হলে বিশ্বে সৃষ্টি হতো না। এদের কলেমা, কালেমা তাওহীদের সাথে মুহাম্মাদ সঃ কে একাকার করে বলা, “লা ইলাহা ইল্লাল্লাহু মুহাম্মাদুর রাসূলুল্লাহ ।” আরবী ব্যাকরণ মতে যার অর্থ দাঁড়ায় ৪ “নাই কোনো উপাস্য আল্লাহ ব্যতিত, তিনিই মুহাম্মাদুর রাসূলুল্লাহ” । অতএব, দেখা যায় যে ইয়াহুদী ও খৃষ্টানরা অর্ধেক মুশরিক, আর মোহামেডানরা ষোলো আনা মুশ্রিক। তাই বিশ্বময় আল্লাহ মোহামেডান মুসলমানদের ইয়াহুদী খৃষ্টানদের গোলাম দশায় অভিশপ্ত করে রেখেছেন। তাহলে বাচার উপায় কি? উপায় হলো, আল্লাহ ও তাঁর আখেরী নবী সঃ যেভাবে কলেমা পড়তে ও বলতে বলেছেন। তা হলো, আমরা যেভাবে আযান, ইকামত ও তাশাহ্হুদে (আত্তাহিয়্যাতে) কলেমা উচ্চারণ করি এ] ১০ এ আশ্হাদু আন্না মুহাম্মাদার রাসূলুল্লাহ আশৃহাদু আল্‌ লা ইলাহা ইল্লাল্লাহু ওয়া আশহাদু আন্না মৃহাম্মাদান্‌ আব্দুহু ওয়া রাসূলুহু। ২! এ] এসো হে আদম সন্তান মানব জাতি, আমরা সঠিকভাবে কলেমা পড়ে মুসলিম ও মুমিন হই। আল্লাহ বলেছেন, জেনে নাও “লা ইলাহা ইবলাল্লাহ" (সূরা মুহাম্মাদ-১৯) শেষ নবী মুহাম্মদ সঃ বলেছেন ঃ আলী] ০৯৯ এএ এ! এ] স! 4] যে-ই বলবে, “লা ইলাহা ইল্লাল্লাহ” জান্নাতে যাবে । শেষ নবী সঃ কোথাও, “লা ইলাহা ইল্লাল্লাহু মুহাম্মাদুর রাসূলুল্লাহ” একত্রে বলেন নি। যে কেউ জেনে তা বলবে, ইয়াহুদী ও</p>
+<p>খৃষ্টানদের ন্যায় ওযাইর ও ঈসা আঃ কে আল্লাহর শরীক বানানোর পাপে মুশূরিক ও কাফের হয়ে যাবে । (তওবা-৩০) 85</p>
+<p>% ভি এ) তোওবা-৩০) এতো দিন যারা না জেনে ভুলে “লা ইলাহা ইল্লাল্লাহু মুহাম্মাদুর রাসূলুল্লাহ” একত্রে বলেছে ও লিখেছে, তারা তওবা করে এখন থেকে “লা ইলাহা ইল্লাল্লাহ” কালেমা তাইয়েবা ও তাওহীদ পড়ে ঈমান নবায়ন করবে । ঘরে, মসজিদে, অফিসে, স্থাপনায় ও যেখানে যেখানে “লা ইল্লাহা ইল্লাল্লাহ মুহাম্মাদুর রাসূলুল্লাহ” একত্রে লেখা আছে, তা মুছে ও সরিয়ে ফেলবে । এখন থেকে পৃথক পৃথক কলেমা তাইয়েবা ও কালেমা রিসালাত পড়বে, লিখবে ও শিখাবে। যেমন সালাতের আযান, ইকামত ও তাশাহ্‌হুদে আছে। তবেই তাওহীদ ভিত্তিক মুস্লিম উম্মাহ সৃষ্টি হয়ে বর্তমান অচল অবস্থা দূর হয়ে বিশ্বে আল্লাহ, রাসূল ও আল্‌ কোর্আন ভিত্তিক উম্মাহর জয় হবে । রহমতের বিশ্বায়ন হবে মানব জাতি এক জাতি হবে । তাওহীদ ও কলেমা তাওহীদের উত্থানই ইমাম মাহ্‌দী ও হযরত ঈসা আঃদের বিপ্লবের সূচনা করবে। বর্তমান প্রচলিত শিকী কলেমা সে উত্থানের পথে বাধা । আজ থেকে সবাই তাওহীদের পতাকা ধারণ করো ও বলো £ ইলাহা ইল্লাল্লাহ আযান ও একামতের শেষে তাই আছে। আল কোরআনে আল্লাহ তাই বলতে নির্দেশ করেছেন।</p>
+    </article>
+
+    <div class="chapter-nav">
+      <a href="barakah-foundation.html" class="nav-btn">
+        <span>←</span>
+        <span><span class="nav-label">পূর্ববর্তী</span>বারাকাহ ফাউন্ডেশন</span>
+      </a>
+      <div class="nav-center">
+        <a href="index.html">📖 সূচীপত্রে ফিরুন</a>
+      </div>
+      <a href="joruri-gyatobbo.html" class="nav-btn primary">
+        <span><span class="nav-label">পরবর্তী</span>জরুরি জ্ঞাতব্য ও প্রমাণ সূত্র</span>
+        <span>→</span>
+      </a>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <strong style="color:#ffffff">এ হলো ইসলাম</strong> &nbsp;—&nbsp;
+  ইমামুদ্দীন মুহাম্মাদ তোয়াহা বিন হাবীব রচিত &nbsp;|&nbsp;
+  <a href="index.html">হোম</a> &nbsp;|&nbsp;
+  <a href="lekhok-porichiti.html">লেখক পরিচিতি</a>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = doc.scrollTop || document.body.scrollTop;
+  const total = doc.scrollHeight - doc.clientHeight;
+  const pct = total > 0 ? (scrolled / total) * 100 : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+const sizes = { sm:'fs-sm', md:'fs-md', lg:'fs-lg', xl:'fs-xl' };
+function changeFont(s) {
+  const body = document.body;
+  Object.values(sizes).forEach(c => body.classList.remove(c));
+  body.classList.add(sizes[s]);
+  try { localStorage.setItem('eholoislam_fs', s); } catch(e){}
+}
+try {
+  const saved = localStorage.getItem('eholoislam_fs');
+  if (saved && sizes[saved]) changeFont(saved);
+} catch(e){}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('collapsed');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.altKey && e.key === 'ArrowRight') {
+    const next = document.querySelector('.nav-btn.primary');
+    if (next) next.click();
+  }
+  if (e.altKey && e.key === 'ArrowLeft') {
+    const prev = document.querySelector('.nav-btn:not(.primary)');
+    if (prev) prev.click();
+  }
+});
+</script>
+</body>
+</html>

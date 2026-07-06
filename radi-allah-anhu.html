@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>রাদিআল্লাহু আনহুম কারা? — এ হলো ইসলাম</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --blue:        #0288d1;
+  --blue-mid:    #0277bd;
+  --blue-deep:   #01579b;
+  --blue-light:  #4fc3f7;
+  --blue-pale:   #81d4fa;
+  --blue-bg:     #e1f5fe;
+  --blue-card:   #e3f2fd;
+  --border:      #b3e5fc;
+  --white:       #ffffff;
+  --text-dark:   #1a1a1a;
+  --text-mid:    #424242;
+  --text-muted:  #757575;
+  --font:        'Hind Siliguri', sans-serif;
+  --font-ar:     'Noto Naskh Arabic', serif;
+  --shadow-sm:   0 1px 4px rgba(2,136,209,0.10);
+  --shadow-md:   0 4px 18px rgba(2,136,209,0.14);
+  --radius:      8px;
+  --reading-max: 720px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--white); color: var(--text-dark); font-size: 17px; line-height: 1.95; }
+
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-light));
+  width: 0%; z-index: 999; transition: width 0.1s linear;
+}
+
+header {
+  background: var(--white);
+  border-bottom: 2px solid var(--blue);
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+.header-inner { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
+.logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.logo-icon {
+  width: 36px; height: 36px; background: var(--blue); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 15px; font-family: var(--font-ar); flex-shrink: 0;
+}
+.logo-text { font-size: 15px; font-weight: 700; color: var(--blue-deep); }
+
+.header-actions { display: flex; align-items: center; gap: 8px; }
+.font-btn {
+  background: var(--blue-bg); border: 1px solid var(--border); border-radius: 6px;
+  padding: 5px 10px; font-family: var(--font); font-size: 13px; color: var(--blue-deep);
+  cursor: pointer; transition: background .15s;
+}
+.font-btn:hover { background: var(--blue-card); }
+
+.page-layout {
+  max-width: 1100px; margin: 0 auto; padding: 32px 20px;
+  display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: start;
+}
+@media (max-width: 1024px) { .page-layout { grid-template-columns: 220px 1fr; gap: 20px; padding: 24px 16px; } }
+@media (max-width: 900px) { .page-layout { grid-template-columns: 1fr; } }
+
+.sidebar { position: sticky; top: 72px; }
+.sidebar-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+.sidebar-title { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.toc-list { list-style: none; }
+.toc-list li { margin-bottom: 2px; }
+.toc-list a { display: block; padding: 6px 8px; border-radius: 6px; text-decoration: none; color: var(--text-mid); font-size: 13px; line-height: 1.4; transition: background .15s, color .15s; }
+.toc-list a:hover { background: var(--blue-card); color: var(--blue-deep); }
+.toc-list a.current { background: var(--blue); color: #fff; font-weight: 600; }
+.toc-list .ch-num { font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 1px; }
+.toc-list a.current .ch-num { color: rgba(255,255,255,0.75); }
+
+.reading-area { min-width: 0; }
+
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); margin-bottom: 20px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--blue-deep); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb .sep { color: var(--border); }
+
+.chapter-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--blue-card); border: 1px solid var(--border); border-radius: 20px;
+  padding: 4px 14px; font-size: 12px; font-weight: 700; color: var(--blue-deep);
+  margin-bottom: 12px; text-transform: uppercase; letter-spacing: .05em;
+}
+
+.chapter-title { font-size: clamp(22px, 4vw, 34px); font-weight: 700; color: var(--text-dark); line-height: 1.25; margin-bottom: 20px; border-bottom: 3px solid var(--blue); padding-bottom: 16px; }
+
+.reading-stats { display: flex; gap: 20px; margin-bottom: 28px; padding: 12px 16px; background: var(--blue-bg); border: 1px solid var(--border); border-radius: var(--radius); flex-wrap: wrap; }
+.stat { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+.stat strong { color: var(--text-dark); font-size: 13px; }
+
+.article-body { font-family: var(--font); font-size: var(--fs, 17px); line-height: 2; color: var(--text-dark); max-width: var(--reading-max); }
+.article-body p { margin-bottom: 1.3rem; text-align: justify; hyphens: auto; }
+.article-body h2 { font-size: 22px; font-weight: 700; color: var(--blue-deep); margin: 2.5rem 0 1rem; padding-bottom: 8px; border-bottom: 2px solid var(--blue-card); }
+.article-body h3 { font-size: 18px; font-weight: 600; color: var(--blue-mid); margin: 2rem 0 0.75rem; }
+.article-body blockquote { border-left: 4px solid var(--blue); background: var(--blue-bg); padding: 14px 18px; margin: 1.5rem 0; border-radius: 0 var(--radius) var(--radius) 0; font-size: 15px; color: var(--blue-deep); }
+.article-body a { color: var(--blue-deep); }
+.arabic-verse {
+  font-family: var(--font-ar); font-size: 1.35rem; line-height: 2.3;
+  text-align: right; direction: rtl;
+  background: var(--blue-bg); border-right: 4px solid var(--blue);
+  padding: 14px 18px 14px 12px; margin: 1.5rem 0;
+  border-radius: 8px 0 0 8px; color: var(--blue-deep);
+}
+
+.chapter-nav {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  margin-top: 48px; padding-top: 24px; border-top: 2px solid var(--border); flex-wrap: wrap;
+}
+.nav-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--white); border: 2px solid var(--border); border-radius: var(--radius);
+  padding: 10px 18px; text-decoration: none; color: var(--text-mid);
+  font-size: 14px; font-weight: 600; font-family: var(--font);
+  transition: border-color .18s, color .18s, background .18s, transform .15s; cursor: pointer;
+}
+.nav-btn:hover { border-color: var(--blue); color: var(--blue-deep); background: var(--blue-card); transform: translateY(-1px); }
+.nav-btn.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+.nav-btn.primary:hover { background: var(--blue-mid); border-color: var(--blue-mid); color: #fff; }
+.nav-btn .nav-label { font-size: 11px; color: var(--text-muted); display: block; font-weight: 400; }
+.nav-btn.primary .nav-label { color: rgba(255,255,255,0.75); }
+.nav-center { text-align: center; }
+.nav-center a { font-size: 13px; color: var(--text-muted); text-decoration: none; border-bottom: 1px dashed var(--border); }
+.nav-center a:hover { color: var(--blue-deep); }
+
+footer { background: var(--blue-deep); color: rgba(255,255,255,0.85); padding: 24px 20px; text-align: center; margin-top: 40px; font-size: 13px; }
+footer a { color: var(--blue-light); text-decoration: none; }
+
+.fs-sm { --fs: 15px; }
+.fs-md { --fs: 17px; }
+.fs-lg { --fs: 20px; }
+.fs-xl { --fs: 23px; }
+
+.sidebar-toggle {
+  display: none; background: var(--blue-card); border: 1px solid var(--border); border-radius: 6px;
+  padding: 6px 12px; font-family: var(--font); font-size: 13px; color: var(--blue-deep);
+  cursor: pointer; margin-bottom: 16px;
+}
+@media (max-width: 900px) {
+  .sidebar-toggle { display: block; }
+  .sidebar { position: static; }
+  .sidebar.collapsed .sidebar-box:not(:first-child) { display: none; }
+}
+@media (max-width: 600px) {
+  .chapter-title { font-size: 22px; }
+  .reading-stats { gap: 12px; }
+  .chapter-nav { flex-direction: column; }
+  .nav-btn { width: 100%; justify-content: center; }
+  .nav-center { width: 100%; }
+}
+
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">إ</div>
+      <span class="logo-text">এ হলো ইসলাম</span>
+    </a>
+    <div class="header-actions">
+      <button class="font-btn" onclick="changeFont('sm')">ক ছোট</button>
+      <button class="font-btn" onclick="changeFont('md')">ক</button>
+      <button class="font-btn" onclick="changeFont('lg')">ক বড়</button>
+      <button class="font-btn" onclick="changeFont('xl')">ক বড়+</button>
+    </div>
+  </div>
+</header>
+
+<div class="page-layout">
+
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰ সূচীপত্র</button>
+    <div class="sidebar-box">
+      <div class="sidebar-title">প্রথম অধ্যায়</div>
+      <ul class="toc-list">
+<li><a href="sotor-o-sabdhan.html"><span class="ch-num">অধ্যায় ০১</span>সতর্ক ও সাবধান বাণী</a></li>
+<li><a href="mukhobondo.html"><span class="ch-num">অধ্যায় ০২</span>মুখবন্ধ: শাহাদাত</a></li>
+<li><a href="prothom-kotha.html"><span class="ch-num">অধ্যায় ০৩</span>প্রথম কথা</a></li>
+<li><a href="barakah.html"><span class="ch-num">অধ্যায় ০৪</span>বারাকাহ</a></li>
+<li><a href="zayd-ibn-harithah.html"><span class="ch-num">অধ্যায় ০৫</span>যায়েদ ইব্ন হারিসাহ</a></li>
+<li><a href="imamati.html"><span class="ch-num">অধ্যায় ০৬</span>ইমামতি কি শুধু কোরেশীদের?</a></li>
+<li><a href="e-bilal-ke.html"><span class="ch-num">অধ্যায় ০৭</span>এ বেলাল কে?</a></li>
+<li><a href="iman-mumin.html"><span class="ch-num">অধ্যায় ০৮</span>ঈমান ও মু'মিন, কুফর ও কাফের</a></li>
+<li><a href="radi-allah-anhu.html" class="current"><span class="ch-num">অধ্যায় ০৯</span>রাদিআল্লাহু আনহুম কারা?</a></li>
+<li><a href="imam-mahdi-dajjal.html"><span class="ch-num">অধ্যায় ১০</span>ইমাম মাহদী ও দাজ্জাল</a></li>
+<li><a href="mujaddid-tajdid.html"><span class="ch-num">অধ্যায় ১১</span>মুজাদ্দিদ ও তাজদীদ</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-box">
+      <div class="sidebar-title">দ্বিতীয় অধ্যায়</div>
+      <ul class="toc-list">
+<li><a href="dik-dorshon.html"><span class="ch-num">অধ্যায় ১২</span>দিক দর্শন — তাওহীদ ও ঈমান</a></li>
+<li><a href="sura-hujurat.html"><span class="ch-num">অধ্যায় ১৩</span>সূরা হুজরাত</a></li>
+<li><a href="sura-mumtahinah.html"><span class="ch-num">অধ্যায় ১৪</span>সূরা মুমতাহিনাহ</a></li>
+<li><a href="sura-tahrim.html"><span class="ch-num">অধ্যায় ১৫</span>সূরা তাহরীম</a></li>
+<li><a href="ke-e-abu-bakr-1.html"><span class="ch-num">অধ্যায় ১৬ (পর্ব ১)</span>কে এ আবু বকর? (১ম পর্ব)</a></li>
+<li><a href="ke-e-abu-bakr-2.html"><span class="ch-num">অধ্যায় ১৬ (পর্ব ২)</span>কে এ আবু বকর? (২য় পর্ব)</a></li>
+<li><a href="ke-e-abu-bakr-3.html"><span class="ch-num">অধ্যায় ১৬ (পর্ব ৩)</span>কে এ আবু বকর? (৩য় পর্ব)</a></li>
+<li><a href="ke-e-abu-bakr-4.html"><span class="ch-num">অধ্যায় ১৬ (পর্ব ৪)</span>কে এ আবু বকর? (৪র্থ পর্ব)</a></li>
+<li><a href="salman-farsi.html"><span class="ch-num">অধ্যায় ১৭</span>সালমান ফার্সী</a></li>
+<li><a href="ihsaner-suful.html"><span class="ch-num">অধ্যায় ১৮</span>ইহসানের সুফল ও বিদআতের কুফল</a></li>
+<li><a href="shamshul-haq.html"><span class="ch-num">অধ্যায় ১৯</span>শামসুল হক ফরীদপুরী</a></li>
+<li><a href="manob-jatir-utso.html"><span class="ch-num">অধ্যায় ২০</span>মানব জাতির উৎস, বিকাশ ও নাশ</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-box">
+      <div class="sidebar-title">পরিশিষ্ট</div>
+      <ul class="toc-list">
+<li><a href="shesh-kotha.html">শেষ কথা, মূল কথা ও আত্মস্বীকৃতি</a></li>
+<li><a href="barakah-foundation.html">বারাকাহ ফাউন্ডেশন</a></li>
+<li><a href="bisesh-ghoshona.html">বিশেষ ঘোষণা</a></li>
+<li><a href="joruri-gyatobbo.html">জরুরি জ্ঞাতব্য ও প্রমাণ সূত্র</a></li>
+<li><a href="lekhok-porichiti.html">লেখক পরিচিতি</a></li>
+      </ul>
+    </div>
+  </aside>
+  <main class="reading-area">
+    <nav class="breadcrumb">
+      <a href="index.html">হোম</a>
+      <span class="sep">›</span>
+      <a href="index.html#toc">প্রথম অধ্যায়</a>
+      <span class="sep">›</span>
+      <span>রাদিআল্লাহু আনহুম কারা?</span>
+    </nav>
+
+    <div class="chapter-label">প্রথম অধ্যায় &nbsp;·&nbsp; অধ্যায় ০৯</div>
+    <h1 class="chapter-title">রাদিআল্লাহু আনহুম কারা?</h1>
+
+    <div class="reading-stats">
+      <div class="stat">📄 <strong>২৭৪৫ শব্দ</strong></div>
+      <div class="stat">⏱ <strong>প্রায় ১৫ মিনিট</strong> পড়ার সময়</div>
+      <div class="stat">📖 <strong>৯ / ২৮</strong> অধ্যায়</div>
+    </div>
+
+    <article class="article-body" id="article">
+<p>“রাদিআল্লাহু আনহু” কারা?</p>
+<p>কাল, যুগ, পাত্র ও ক্ষেত্রের সকল সীমাবদ্ধতার উ্ধর্ব আল্লাহ্‌। তার সত্য ও তার সুন্নাত বা বিধানও তাই। সৃষ্টির সেরা মানুষ তার অস্তিতের সকল মুহুর্তে তার অষ্টা প্রতিপালককে স্মরণ করে তার দাসত্ব ও আনুগত্যে অবস্থান করে, তাতেই সে খুশী ও আনন্দিত। এ দাসত্ব ও আনুগত্যের জীবন যাত্রায় জয়-পরাজয়, নিন্দাবাদ-জিন্দাবাদ এবং জীবন ও মৃত্যুর কোনো ভয় থাকেনা । আত্রীয়-স্বজন, স্ত্রী-পুত্র ও গোষ্ঠি-জ্ঞাতির বিচার বিবেচনা থাকে না। শুধু ভয় থাকে “আল্লাহ্‌ মালিক ও প্রভু যেনো নারাজ না হন” । সর্ব মুহুর্তে, সর্ব পরিস্থিতিতে তীর সন্তুষ্টি চাই। মানুষ, নর কি নারী, যখন উক্ত অবস্থায় নিজেকে স্থাপন করে, তখন তারা মু'মিন ও মু'মিনা হয় । তা না হলে তারা “মানুষ পশু”।</p>
+<p>যারা আল্লাহৃতে বিলীন হয়ে তুষ্ট হয়, আল্লাহ তাদের উপর তুষ্ট হন। কৌরআনের ভাষায় এদেরকে “রাদিআল্লাহু আনহু” বলা হয়েছে। কোরআনের চার জায়গায় আল্লাহ্‌ এদের উল্লেখ করেছেন।</p>
+<p>(এক) কেয়ামতের দিন যখন হযরত ঈসা আঃ বলবেন যে, তিনি কখনো তাকে ও তার মাকে আল্লাহ্‌র সাথে শরীক করতে খৃষ্টানদের বলেননি এবং এ খুস্টানদের এ পাপের জন্য আল্লাহ্‌ চাইলে তাদের শাস্তিও দিতে পারেন, যেহেতু তারা তারই দাস । আর তিনি ইচ্ছা করলে তাদের ক্ষমাও করতে পারেন, কারণ তিনি পরাক্রমশালী বিচারক । তখন আল্লাহ বলবেন, “আজ একমাত্র সত্যনিষ্ঠদের সত্যনিষ্ঠাই উপকারে আসবে (কারো সুপারিশ নয়) তাদের জন্য চিরস্থায়ী বেহেশৃত্‌। রাদিয়াল্লাহু আনহুম ওয়া রাদূআন্হ। আল্লাহ্‌ তাদের উপর তুষ্ট এবং তারাও আল্লাহ্‌র উপর তুষ্ট । এটা বিরাট সাফল্য” । (সুরা মাইদাহ- ১১৯) £:$ শ। ও</p>
+<p>(দুই) আখেরী নবী সঃ এর দাওয়াতে সাড়া দিয়ে মুহাজির আনসারদের মধ্যে প্রতিযোগিতায় যারা প্রথম শ্রেণী প্রাপ্ত এবং পরে যারা উত্তম রূপে তাদের অনুসারী হয়েছে, তারাই “রাদিআল্লাহু আনহুম ওয়ারাদূ আনহু” আল্লাহ্‌ তাদের উপর তুষ্ট এবং তারাও আল্লাহ্‌র উপর তুষ্ট । আল্লাহ্‌ তাদের জন্য চিরস্থায়ী বেহেশ্ত্‌ সাজিয়ে রেখেছেন । এটা বিরাট সাফল্য । (সুরা তওবা-</p>
+<p>আল্লাহ্‌ ও আখেরাতে বিশ্বাসী এমন কোনো জাতি পাবেনা, যারা আল্লাহ্‌ ও তার রাসূলের বিরুদ্ধাচারণকারীদের সাথে কোনো বন্ধুতের সম্পর্ক রাখবে। হোকনা তারা তাদের পিতা-মাতা, দাদা-দাদী, সন্তান-সন্ততি, ভাই-বেরাদর বা সমৃদ্ধ করেন। এদের আল্লাহ্‌ চিরস্থায়ী বেহেশৃতে স্থাপিত করবেন। আল্লাহ এদের উপর তুষ্ট এবং এরাও আল্লাহ্‌র উপর তুষ্ট, “রাদিআল্লাহু আনহুম্‌ ওয়া রাদূআনহ”। এরাই আল্লাহ্‌র দল। এরাই সফলকাম । (সূরা মুজাদালাহ্‌ -</p>
+<p>(চোর) আল্লাহ্‌র কিতাব পেয়েও যারা কুফ্রী ও শির্ক করে, তারা জাহান্নামী ও নিকৃষ্ট জীব। যারা ঈমান এনে সে অনুযারী সৎকাজ করে, তারা জীব-শ্রেষ্ঠ। তাদের প্রতিপালকের নিকট তাদের পুরস্কার স্বর্ণোদ্যান, যাতে রং বেরঙ্গের বর্ণা প্রবাহমান । তাতে তারা চিরস্থায়ীভাবে বাস করবে। “রাদিআল্লাহু আনহুম, ওয়ারাদূ আনৃহু”। আল্লাহ্‌ তাদের উপর তুষ্ট, তারাও আল্লাহ্‌র উপর তুষ্ট। যারা আল্লাহকে ভয় করে, তাদের এ পরিণাম । (সূরা আল বাইয়্যেনাহ - ৬,৭,৮) আল কৌরাআনে এ চার জায়গায় আল্লাহ্‌ তা'আলা “রাদিআল্লাহু আনহু” দের বর্ণনা ও তাদের গুণাবলী বেঁধে দিয়েছেন। এর বাইরে অবস্থানকারীরা কেউ “রাদিআল্লাহু আনহু”র যোগ্য ছিলো না, নেই এবং কেয়ামত পর্যন্ত হবেনা । এ হলো আল্লাহ্‌র সুন্নাত বা বিধান। যার কোনো পরিবর্তন বা পরিবর্ধন নেই। “রাদিআল্লাহু আনহু”দের সূরা মুজাদালায় বিস্তারিত বর্ণনা দেয়ার পূর্বে আল্লাহ্‌ পাক যাদের উপর “অসন্তুষ্ট” অর্থাৎ যাদের উপর তীর গযব অবধারিত, তাদের লোমহর্ষক বিবরণ দিয়েছেন। গাল্পিক ও পেশাদার তথাকথিত মুফাস্সিররা আল্লাহ্‌র গযব ও অসন্তুষ্টির কোনো আয়াত পেলেই তা অতীতের ইয়াহুদী ও খুষ্ঠানদের উপর আরোপ করার জন্য দু'দশ খানা হাদীস ও গল্প বানিয়ে তা" ওদের উপরই সেঁটে রাখে । যেনো যতো পাপ আছে সব অতীতের ইয়াহুদী খৃস্টানদের ঘাড়ে। আখেরী নবী সঃ কর্তৃক প্রতিষ্ঠিত বিশ্ব রহমত, পূর্ণ ইস্লামকে বিকৃত করে যারা পৃথিবীতে আল্লাহ্‌র গযবকে টেনে আনবে, তাদের জন্য যে অতীতের সকল পাপীদের পাপের যোগফল বর্তাবে, তার কোনো উল্লেখ নেই ওদের লেখনীতে । কারণ, সে জঘন্য পাপে যে তারা নিজেরা শরিকদার?! আল্লাহ্‌ সূরা মুজাদালায় “কারা রাদিআল্লাহ্‌</p>
+<p>আনহুম” এবং “কারা গাদিবাল্লাহু আনহুম” তার বিশদ ব্যাখ্যা দিয়েছেন। স্বয়ং আল্লাহ্‌ তা'আলার এ ব্যাখ্যার পর কোনো ঈমানদার ব্যক্তি ও জাতির অন্য কোনো ব্যাখ্যার কল্পনাও জাহান্নামী হওয়ার চূড়ান্ত প্রমাণ । তাতে বিন্দুমাত্র সন্দেহের কোনো অবকাশ থাকেনা । আল্লাহ্‌, ভূত, বর্তমান ও ভবিষ্যৎ জানেন । তাই তীর সর্বশেষ নবী সঃ কে দিয়ে অতীতের ইয়াহুদী ও আরব মুনাফিকৃদের দৃষ্টান্ত দিয়ে তারপর কেয়ামত পর্যন্ত তীর তুষ্ট ও অভিশপ্ত বান্দাদের চূড়ান্ত দৃষ্টান্ত বর্ণনা করেছেন।</p>
+<p>(৫ ঝা এল. উকি</p>
+<p>ও ঞেঃ বি পি]</p>
+<p>হে রাসূল, তুমি কি দেখছোনা ওদের, যারা আল্লাহ্‌র গযবে পতিতদের পথ অনুসরণ করছে? অথচ ওরা তোমাদেরও লোক নয়, ওদেরও লোক নয়? এবং ওরা জেনে শুনে মিথ্যা শপথ নিচ্ছে! আল্লাহ্‌ এদের জন্য কঠোর শাস্তির ব্যবস্থা করে রেখেছেন। এরা যা করে আসছে, তা অতীব জঘন্য। এরা এদের শপথ অনুষ্ঠানকে আল্লাহ্‌র পথে বাধা সৃষ্টির জন্য ঢাল স্বরূপ দীড় করাচ্ছে । এর জন্য ওদের অপমানজনক শাস্তি হবে। ওদের ধনবল ও জনবল কিছুই আল্লাহ্‌র বিরুদ্ধে কাজে আসবেনা । ওরা সবাই মিলে চির জাহান্নামী হবে। কেয়ামতের দিনে যখন এ শ্রেণীর সকল মানব গোষ্ঠিকে আল্লাহ্‌ একত্র করবেন, তখন এরা সবাই আল্লাহ্‌র সামনে শপথ অনুষ্ঠান করবে, যেমন পার্থিব জীবনে তারা তোমাদের জন্য শপথ অনুষ্ঠান করে । তারা ভাববে যে (বাচার জন্য) তারা কিছু একটা দীড় করাতে সক্ষম হয়েছে। হায়, এ ধারণায় ওরা নিশ্চিত মিথ্যায় পতিত!</p>
+<p>শয়তান ওদের আষ্টে পৃষ্ঠে বেঁধেছে। ফলে শয়তান ওদের আল্লাহ্‌র শিক্ষা ভুলিয়ে দিয়েছে। ওরা শয়তানের দলের সাংসদ । ওরা নিশ্চিত নিপাত যাবে । যারা আল্লাহ্‌র ও তীর রাসূলের বিরোধী দলের সদস্য হয়, ওরা নিশ্চিত লাঞ্থিতদের দলে। আল্লাহ্‌ বিধিলিপি করে রেখেছেন “আমি ও আমার রাসূলরাই একমাত্র বিজয়ী হবো । নিশ্চয়ই আল্লাহ্‌ সর্বময় ক্ষমতায় পরাক্রমশালী” ।</p>
+<p>তুমি আল্লাহ ও পরকালে বিশ্বাসী এমন কোনো সম্প্রদায় পাবেনা, যারা আল্লাহ্‌ ও তার রাসূলের বিরোধীদের সাথে কোনো বন্ধুত্বের সম্পর্ক রাখবে, হোকনা তারা তাদের বাপদাদা ছেলে পেলে, ভাই বেরাদার বা গোষ্ঠি প্রতিবেশী! এ শ্রেণীর লোকদের অন্তরে আল্লাহ্‌ স্বয়ং “ঈমান” অষ্কিত করেছেন এবং তার রূহানী শক্তি দিয়ে তাদের সমৃদ্ধ করেছেন। এদের আল্লাহ্‌ নয়নাভিরাম বেহেশৃতে অধিষ্ঠিত করবেন। যার তারা চির বাসিন্দা হবে। এদের উপরই আল্লাহ্‌ তুষ্ট এবং এরাও আল্লাহ্‌র উপর তুষ্ট । এরাই আল্লাহ্‌র দলের সাংসদ। সবাই শুনে রাখো, একমাত্র আল্লাহ্‌র দলই সফল হবে। (সূরা মুজাদালাহ্‌, )</p>
+<p>এ হলো বাবা আদম থেকে কেয়ামত পর্যন্ত আদম সন্তানদের “রাদিআল্লাহু আন্হুম্‌” এবং “গাদিবাল্লাহু আলাইহিম” হওয়ার মানদন্ড। আখেরী নবী সঃ এবং তীর পূর্বে যারা এ মানদন্ডে নিজেদের আল্লাহ্‌ ও তার রাসূলদের অনুসারী রূপে প্রতিষ্ঠিত করে গিয়েছে, তারা সবাই নির্বিশেষে “রাদিআল্লাহু আনহুম” যেমন আল্লাহ্‌ সূরা আল বাইয়্েনাতে বলেছেন। আখেরী নবী সঃ এর জীবদ্দশায় যারা তাকে পেয়ে যায়েদ, বারাকাহ্‌, খাদিজাহ্‌, বেলাল, আম্মার, সুহাইব, ইব্‌ন মাসউদ, আবু বকর, আবু যার ও উমরদের মতো সে মানদন্ডে উপস্থাপিত করে গিয়েছে, তারা যেরূপ “রাদি</p>
+<p>আল্লাহু আন্হুম” তদ্রূপ কেয়ামত পর্যন্ত যারা সে মানের হয়েছে ও হবে, সবাই “রাদি আল্লাহু আনহুম্‌” যেমন উপরে সূরা মুজাদালায় আল্লাহ বলেছেন। বরং তার সমর্থনে রাসূল সঃ থেকে বর্ণিত পাওয়া যায় যে তিনি বলেছেন তার বিদায়ের পর যারা তদ্রূপ হবে, তাদের জন্য সত্ুর গুণ বেশী মর্যাদা রয়েছে। কারণ, তারা কোনো রাসূলকে না দেখে, অহী নাযিল হতে না দেখে এবং শুধু শুনে ও কৌরআন পড়ে রাসূলদের অনুসারী হয়েছে, হচ্ছে ও হবে।</p>
+<p>আর যে সমস্ত কৌরেশী, হাশেমী, উমাইয়া ও আরবরা রাসূল সঃ কে দেখে তার মুখে কৌরআন শুনে ও তার আমল দেখেও উপরোল্লেখিত মানদন্ডে রাসূল সঃ কে গ্রহণ করেনি ও মানেনি, বরং তার মৃত্যুর পরই গোত্রবাদ, বর্ণবাদ ও আল্লাহু আন্হুম” নয়। বরং যারা কোরআনের শিক্ষার বিরুদ্ধে রাসূল সঃ এর আদর্শকে জলাঞ্জলী দিয়ে স্বজনগ্রীতি করে ইসলামের রহমতকে উৎখাত করে পুনঃ মক্কাহ ও মদীনায় গৃহযুদ্ধের আগুন জ্বালিয়ে রাসূল সঃ এর গড়া প্রথম “রাদিআল্লাহু আন্হুম্” এর পরিববর্তে, সেই সমস্ত নরাধম, যাদের উপর আল্লাহ্‌, ফেরেশতাকুল ও মানব জাতির লানত ও অভিসম্পাত। আল্লাহ্‌ পাক কোরআনে এ শ্রেণীর লোকদের উপর বিশেষ করে পাঁচবার লা'নত ও গযবের উল্লেখ করেছেন।</p>
+<p>(এক) এদের পরিণাম, আল্লাহ, ফেরেশতাকুল ও সকল মানবজাতির লা'নত (আলে ইমরান, )</p>
+<p>(দুই) এরা এ পৃথিবীতে লানতের পিছু ধাবন করবে এবং কেয়ামতের দিনও । (হুদ্‌, )</p>
+<p>(তিন) পৃথিবীতেও লা'নত এদের তাড়াবে এবং কেয়ামতের দিনও । (হুদ-৯৯)</p>
+<p>(চার) এরা পৃথিবীতে বিশৃঙ্খলা সৃষ্টিকারী, এদের উপর লা'নত এবং নিকৃষ্ট এদের বাসস্থান। (রা'দ-২৫)</p>
+<p>(পাচ) আমি পৃথিবীতে এদের পেছনে লা'নত লাগিয়ে দিয়েছি। পরকালেও এরা দুর্দশাগ্রস্থ হবে। (কাসাস্্‌-৪২)</p>
+<p>এদের অমার্জনীয় পাপ হলো যে, এরা আল্লাহ্‌র কিতাব, তার নিদর্শন ও তীর সাথে রাসূলদের মাধ্যমে কৃত শপথ ও অঙ্গিকার ভঙ্গ করে তাকে পেছনে ছুঁড়ে পার্থিব তুচ্ছ ও ক্ষস্থায়ী লোভ ও লাভের পেছনে ধাওয়া করে । কৌরেশদের চেয়েও অনেক বেশী খান্দানী কুলিন ও অভিজাত বনি ইসরাঈলদের উপর আল্লাহ্‌র এ লা'নত। তারা হযরত ইবাহীম খলীলুল্লাহর বংশধর বলে আল্লাহ্‌র অত্যন্ত প্রিয় ছিলো । আত্মকলহবাজ, রক্তপিপাসু ও গোত্রপূজারী মক্কার কৌরেশরা তাদের তুলনায় অতি তুচ্ছ সম্প্রদায় ছিলো ।</p>
+<p>সেই নিকৃষ্ট সম্প্রদায়ের নিকট আল্লাহ তার সর্বোৎকৃষ্ট আখেরী নবী সঃ কে পাঠিয়েছিলেন। তাদের হঠকারিতা, পাষন্ড মনোবৃত্তি ও হিংস্রতায় রাসূল সঃ মর্মাহত হয়ে সূরা হুদ ও ইউনুসে বর্ণিত বনি ইস্রাঈলের পাষন্ড চরিত্রের কথা ভাবতেন । রাসূল সঃ বহুবার তার মক্কাবাসী ও কৌরেশী জাতকে সতর্ক করে বলেছেন “তোমরা আমার পর সুরা হুদ ও ইউনুসে বর্ণিত অভিশপ্ত জাতি সমূহের মতো আমার আদর্শ ও শিক্ষা ত্যাগ করে অভিশপ্ত হবে । সূরা হুদ ও ইউনুস্‌ পড়ে তার সাথে তোমাদের মিল দেখে চিন্তায় আমি বুড়িয়ে গিয়েছি।” “শাইয়াবানী হুদ্‌ ওয়া ইখ্ওয়ানুহু।”</p>
+<p>মাদীনায় হিজরত, মক্ধাহ বিজয় ও ইস্লামের জয়ের পরও যখন রাসূল সঃ যায়দ ও উসামাহকে নেতৃতৃ দিয়ে দেখলেন যে অনৈক্যের আরব বেদুঈন জাত রাসূল জীবিত থাকতেই সুযোগ পেলে তাদের অবাধ্য ও অকৃতজ্ঞ স্বভাব বেরিয়ে পড়ে, তাই রাসূল সঃ তার বিদায়ের পূর্বে বিদায় হজ্জ ছাড়াও মৃত্যুর পূর্ব মুহুর্ত পর্যন্ত বিশেষ ভাবে নবদীক্ষিত আরবদের নানান ভাবে সতর্ক করে যান। বিশেষ করে মাদীনাহবাসীদের উপর যে মক্কার কোরেশদের আক্রোশ ছিলো, তিনি তা স্পষ্ট বুঝতে পেরে মদীনাবাসী তার প্রিয় আনসারদের প্রতি কোনো প্রকার অন্যায় ও অসদাচারণের বিরুদ্ধে স্পষ্ট সতর্কবাণী উচ্চারণ করে বহুবার সাবধান করে যান।</p>
+<p>বিদায়ের পূর্বে পরাজিত কৌরেশদের, বিশেষ করে বনু উমাইয়ার গতিবিধি লক্ষ্য করে হুজুর সঃ খুব বিচলিত হন বলা চলে । তিনি বনু উমাইয়ার কিছু লোককে মাদীনাহ থেকে বহিষ্কার করে ঘোষণা করেছেন “এরা কখনো মাদীনায় বাস করতে পারবে না।” এদের মধ্যে ওস্মান ইব্‌ন আফ্ফানের চাচা হাকাম, তার ছেলে মারওয়ান ও হিশাম অন্যতম । একবার রাসূল সঃ ওসমানকে লক্ষ্য করে বলেন, “তোমাদের মধ্যে এমন এক ব্যক্তি হবে যার একার উপর অর্ধ মানব জাতির আযাব হবে ।”</p>
+<p>নবী করীম সঃ এর নিকটতম এক ব্যক্তির পাপ এতো গুরুতর হবে যে বিশ্বাবাসীর সকল পাপের অর্ধেক তার একার উপর আপতিত হবে!!??</p>
+<p>এ কেমনতরো ব্যাপার? তাও সে লোকটি আবার কৌরেশের লোক! সে ব্যক্তিটি আবু বকর, উমর, ওস্মান ও আলীদের মতো রাসূল সঃ এর ঘনিষ্ঠ লোকদের মাঝ থেকে হবে!!!</p>
+<p>হযরত ঈসা রহুল্লার বারোজন ঘনিষ্ঠ সঙ্গী বা হাওয়ারী ছিলো। তারা তার নিকটতম ছিলো । তাদের মধ্য থেকে একজন জুডাস্‌ মাত্র তিরিশটি রৌপ্য মুদ্রার বিনিময়ে তাদের নবী ঈসা রূহুল্লাহ আঃ কে ঘাতকদের হাতে বিক্রি করে দিয়েছিলো । আল্লাহ তার নবীকে তুলে নিয়ে গিয়ে সাহাবী জুডাস্‌কে হয্রত ঈসা আঃ এর অবিকল অবয়ব করে তাকে ঘাতকদের হাতে তুলে দেন। এটাকেই আল্লাহ্‌ কৌরআনে বলেছেন “ওরাও চক্রান্ত করেছিলো এবং আল্লাহ্‌ও চক্রান্ত করেছিলো । কিন্তু আল্লাহ্‌ চক্রান্ত কারীদের শ্রেষ্ঠ”।</p>
+<p>ঈসা রহুল্লাহর সাহাবীদের মধ্যে জুডাস্‌ আল্লাহ্‌র নবীর ঘনিষ্ঠ হয়েও নবীর আদর্শ বিক্রয় করে এমন মহাপাপ করলো যে, সে তার পাপের ভয়াবহতা বুঝতে পেরে বলে যায় যে, “কেয়ামত পর্যন্ত সে হযরত ঈসার অনুসারীদের সকল পাপ তার ঘাড়ে নিয়ে ক্রুশ বিদ্ধ হতে যাচ্ছে।” খুষ্টানরা জুডাস্‌ হাওয়ারীর পরিবর্তিত রূপ দেখে এবং তার কথা শুনে তাকেই আসল ঈসা আঃ বিশ্বাস করে বলে বেড়াচ্ছে যে, তাদের যীশু তাদের সকল পাপ নিজের ঘাড়ে নিয়ে তাদের পাপ মুক্ত করে গিয়েছেন। আসলে যে এ যীশু আল্লাহ্‌র ক্লোনিং করা নকল যীশু, তা তারা বুঝতে পারেনি । আসল সাইয়্যেদুনা ঈসা রহুল্লাহকে আল্লাহ্‌ উঠিয়ে নিয়েছেন। তিনি পুনঃ আসবেন, এসে মিথ্যার দাজ্জালকে নির্মূল করে আসল সত্য প্রতিষ্ঠা করবেন।</p>
+<p>জুডাস্‌ কিন্তু কাফের বা সম্পূর্ণ বেঈমান ছিলোনা । জুডাস্‌ ও তার অপর এগারজন ঘনিষ্ঠ সাহাবীদের উপস্থিতিতেই হযরত ঈসা বলেছিলেন “তোমাদের মধ্যে কে আমাকে কিছু মুদ্রার বিনিময়ে বিক্রী করবে?” তখন হযরত ঈসা আঃ এর ইঙ্গিত কিন্তু জুডাসের দিকেই ছিলো । যেমন আখেরী নবী সঃ তীর নিকটতম সাহাবীদের যখন বলেছিলেন, “তোমাদের মধ্যে কে সে ব্যক্তি, যার উপর বিশ্ববাসীর পাপের অর্ধেক বর্তাবে?” যাদের ঈমান নিঃশর্ত ও নিঃস্বার্থ না হয়, তারা কিন্তু পার্থিব লোভ সম্বরণ ক্রতে পারে না। যেমন জুডাস্‌ পারেনি । তদরূপ ইসলামের পূর্ণ জয়ের পর যখন কৌরেশীরা দেখলো যে ইসলাম তো প্রতিষ্ঠিত হয়েই গিয়েছে। এখন এটাকে দখল করে আমরাই এর একচ্ছত্র ইমাম হয়ে যাই! তাই তারা তাদের জাহিলী দৃষ্টিতে দেখা নবীকে তাদের গোত্রীয় সম্পদ মনে করে “আল্‌ আইম্মাতু মিন কৌরেশ” প্রচার করে ইসলামের ইমামতকে তাদের গোত্রীয় খেলাফতে রূপান্তরিত করে । তাদের মধ্যে থেকে একজন আরো এগিয়ে বললো, যদি বেহেশৃতের চাবী তার হাতে থাকতো, তা"হলে সে তার উমাইয়া বংশের লোকদের যে বেহেশ্ত বিশ্বাস করে, সে নিশ্চয়ই ঈমানদার । বেঈমান হলে তো আর বেহেশৃতের কথা বলতে পারে না! তবে তার ঈমান শর্তপূর্ণ ও স্বার্থপূর্ণ। আল্লাহ্‌ ও রাসূলদের উপর যাদের নিঃশর্ত ও নি্স্বার্থ ঈমান, একমাত্র তারাই স্বার্থপরতা ও স্বজনপ্রীতির উধের্বে খাটি ঈমানদার হয়। একমাত্র তারাই “রাদিআল্লাহু আনহুম”। এ শ্রেণীর ঈমানদারগণ কেয়ামত পর্যন্ত “রাদিআল্লাহু আনৃহুম”। এদের কোনো যুগ ও কাল নেই।</p>
+<p>ইসরাঈলী গোত্রবাদী জুডাস্রা মনে করতো যে, তারা আল্লাহ্‌র সন্তান ও তার প্রিয় পাত্র। যেমন কোরেশরা মনে করেছে যে, তারা যেহেতু কাবাহ্‌ ঘরের প্রতিবেশী, তাই তাদের কোনো পাপ নেই। কোরেশ ও আরবরা ইয়াহুদী ও খৃষ্টানদের কাছ থেকে এ ধারণা ধার করেছে। যেখানে আল্লাহ কোরআনে বলেছেন কোনো মানুষই তার দরবারে নিজের আমল ব্যতীত পার পাবেনা । আখেরী নবী সঃ তার কলিজার টুকরা ফাতিমাহকে বলেছেন যে তিনি তাকেও পার করতে পারবেন না, বরং ফাতিমাহকেও তার নিজের কর্ম ফলে পার হতে হবে। সেখানে যীশুর খৃষ্টানদের পার করে নেয়া এবং আখেরী নবী সঃ এর কোরেশী বা আরবদের পার করে নেয়ার কথা জঘন্য মিথ্যুকরা ব্যতীত কেউ প্রচার করতে পারে?!</p>
+<p>কাঁচা ঈমানদাররা ধর্মবেসাতি ও ধর্ম ব্যবসায়ী হয়। কোনো পাপ করলেই তাদের ধর্ম যায় না। যেমন ইয়াহুদীরা ঈসা আঃ কে বিক্রি করার পরও । তদরূপ আখেরী নবী সঃ এর রিসালাতকে “কুকুরের মতো কামড়ানো রাজতন্ত্রে” রূপান্তরিত করে মাদীনায় হাজার হাজার খাটি ঈমানদার মদীনাবাসীকে হত্যা, হাজার হাজার মেয়েদের ধর্ষণ ও মস্জিদে নববীকে ঘোড়ার আস্তাবলে পরিণত করেও তাদের ঈমান অটুট রেখে কৌরেশী উমাইয়ারা শুধু সাহাবী ও</p>
+<p>ঈমানদারই রয়ে যায়নি, মক্কাহ্‌, মদীনাহ্‌, বাগদাদ, দামেক্কে তাদের ইমামতীও বহাল রেখেছে। মদ খেয়ে ফজরের নামাজ তিন রাকাত পড়ালেও তাদের ইমামতি যায় নি।</p>
+<p>আজ থেকে এক শতান্দী পূর্বে আরবরা জিদ্দাহ, মক্কাহ ও মদীনাহর পথে হাজীদের সর্বস্ব লুট করতো। পর্তুগীজ, বৃটিশ, ডাচ ও অন্যান্য খুস্টান জলদস্যুরা মক্কাগামী হাজীদের জাহাজ আক্রমণ করে সর্বস্ব লুট করে তাদের হত্যা করতো । খুস্টানরা এসব করতো এই মনে করে যে, যীশু তাদের সকল পাপ মোচন করে দেবে । আরবরা কাফেলা লুট করে বহু ক্ষেত্রে হজ্জ যাত্রীদের হত্যাও করতো । তাদের দৃষ্টিতে কিন্তু তারা বেঈমান ছিলোনা । তারা বানোয়াট হাদীস মোতাবেকই এসব কাজ করতো । আক্রান্ত হজ্জ যাত্রীরা যখন বলতো যে তারা হজ্জ করতে এসেছে, এখনো হজ্জ সমাধা করেনি, তাদের হজ্জ পালন করার জন্য ছেড়ে দেয়া হোক, তখন আরবরা বলতো, হাদীসে আছে যে রাসূল বলেছেন, যারা হজ্জ করতে এসে মারা যায়, তারা শহীদ হয় এবং কেয়ামত পর্যন্ত যতো হজ্জ হয়, তারা সকল হজ্জের সওয়াব পায়। তাই আরবরা তাদের সর্বস্ব লুট করে হত্যা করে কেয়ামত পর্যন্ত হজ্জে জারিয়াহর ব্যবস্থা করেছে। অপর দিকে যারা হজ্জ সমাধা করে দেশে স্বজনদের কাছে ফেরার পথে আক্রান্ত হয়ে প্রাণ ভিক্ষা চাইতো যে, তারা পবিত্র হজ্জ পালন করে স্বজনদের কাছে ফিরছে। তখন আরব দস্যুরা বলতো, “হাদীসে বর্ণিত আছে যে, হজ্জ করলে মানুষের সকল গুনাহ মাফ হয়ে সদ্য প্রসূত শিশুর মতো নিষ্পাপ হয়ে যায়। কিন্তু হজ্জ করে দেশে ফিরে গুনাহ করলে সে গুনাহ আর মাফ হয় না।” তাই আরবরা হাজ্জীদের সর্বস্ব লুটে তাদের হত্যা করে নিষ্পাপ বেহেশতে পাঠানোরই ব্যবস্থা করছে। এ হত্যাকান্ডে কোনো গুনাহ নেই!</p>
+<p>বর্তমানে মক্কাহ ও মাদীনায় হজ্জ ও ওমরা পালনকারীদের কাছ থেকে মক্কাহ্‌ ও মাদীনার মোয়াল্লেম ও অন্যরা যে বিলিয়ন বিলিয়ন টাকা উপার্জন করে, তার সিংহ ভাগই যে আরবরা দেশ বিদেশে বেশ্যালয়, পানশালা, জুয়ার আড্ডা ও অন্যান্য পাপকার্ষে ব্যয় করে, তা কি কোনো ওয়াকিফহাল ব্যক্তি অস্বীকার করতে পারে?</p>
+<p>রাসূল সঃ মক্কার কাফেরদের পরাজিত করে মক্কাহ ও কা'বাহকে পবিত্র করে হারাম ব্যভিচারকে নির্মূল করে হালাল বিবাহকে সহজ করে যান । “জটিল বিবাহ ব্যভিচারের পথ সুগম করে” । নারী পুরুষের দাম্পত্য জীবনের উদ্দেশ্যকে ব্যাখ্যা করে তা নিজে পালন করে পাপকে পৃথিবী থেকে বিদায় দেন। বিদায় হজ্জে তিনি বার বার বুঝিয়ে হাত তুলিয়ে শপথ নিয়ে যান, “তোমরা আর অন্ধকার যুগের জাহিলিয়্যাতে কখনো ফেরৎ যাবেনা ।”</p>
+<p>কিন্তু ইসলামের ইমামত ও খেলাফতকে উৎখাত করে রাজতন্ত্র প্রতিষ্ঠা করেই মক্কার জালুতের বংশধরেরা বিজিত দেশের মেয়েদের বন্দী করে এনে মক্কাহ্‌ ও মাদীনার ঘরে ঘরে সয়লাব করে দেয়। পেশাদার নর্তকী ও বেশ্যাদের এনে এদের বেহায়াপনার শিক্ষা দিয়ে নবী সঃ এর রেখে যাওয়া সমাজের রন্ধে রন্ধে এদের ঢুকিয়ে দেয়া হয়। কারণ, ইসলামী পারিবারিক দুর্গকে ধ্বংস করতে না পারলে সে সমাজে জাহিলিয়্যাতকে পুনঃ প্রতিষ্ঠা করা যায়না। ইসলামের এক মোজেযাহ উমর ইবন্‌ আব্দুল আজীজ ধূমকেতুর মত উদয় হয়ে উমাইয়াহ্‌ খবীসদের নাপাকী দূর করে এ সমস্ত মেয়েদের উদ্ধার করে যাদের পিতা মাতাদের ঠিকানা পেয়েছে, তাদের ফেরৎ দিয়েছে। যাদের ঠিকানা সংগ্রহ করতে পারেনি, তাদের বাইতুল মাল থেকে অর্থ দিয়ে পুনর্বাসিত করে ইসলামী জীবন যাপনের ব্যবস্থা করে দেয়। ইসলামকে জাহিলিয়্যাতে রূপান্তরকারী জুডাসদের অনুসারীরা নিজেদের মধ্যে মিথ্যা বুজুগাঁ প্রচার করে সাধারণ মুসলমানদের মনে ভয়ের সৃষ্টি করেছে যে, ওদের ভন্ডামীর বিরুদ্ধে কিছু বললে ঈমানই চলে যাবে । অথচ এঁ জুডাস্রাই আল্লাহ্‌, কোরআন এবং রাসূল সঃ এর বিরুদ্ধাচারণ করে ইসলাম ও ঈমান থেকে খারিজ হয়ে “হিযবুশ শাইতান” অর্থাৎ শয়তানের দলের সদস্য ও সাংসদ হয়ে কেয়ামত পর্যন্ত অভিশপ্ত হয়েছে।</p>
+<p>আখেরী নবী সঃ এর নবী জীবনের ভিত্তি প্রস্তর, তাঁর জামাতের প্রথম সারি এবং ইসলামী উম্মাহর কষ্টি পাথর ইব্‌ন মাসউদ, আম্মার, বেলাল, সুহাইব, আবু যার, সালমান ও আলীরা এঁ জুডাসের ইসলাম ও নবী সঃ এর আদর্শ ত্যাগী হওয়ার ব্যাপারে এক্যমত্য প্রকাশ করে গিয়েছে। তাদের সাথে তালহা ও যুবাইরও নির্দধিধায় একমত হয়ে বলেছে যে, উম্মাতে মুহাম্মাদ সঃ এর জুডাস্‌ যে অবরুদ্ধ হয়ে নিহত হয়েছে তা সে তার কৃত পাপের কিঞ্ৎ শাস্তিই পেয়েছে। বাকী পাপের শাস্তি পৃথিবীবাসীর অর্ধেক পরকালে ভোগ করবে, যেমন আসল জুডাস্‌ খৃষ্টান বিশ্বের সকল পাপ নিজের ঘাড়ে নিয়ে ক্রুশবিদ্ধ হয়ে পৃথিবী ত্যাগ করেছে।</p>
+<p>আসলে কি কোনো মানুষ অন্যের পাপের বোঝা ঘাড়ে নিয়ে অন্যান্যদের পাপ লাঘব করতে পারে? পারে না। আসলে</p>
+    </article>
+
+    <div class="chapter-nav">
+      <a href="iman-mumin.html" class="nav-btn">
+        <span>←</span>
+        <span><span class="nav-label">পূর্ববর্তী</span>ঈমান ও মু'মিন, কুফর ও কাফের</span>
+      </a>
+      <div class="nav-center">
+        <a href="index.html">📖 সূচীপত্রে ফিরুন</a>
+      </div>
+      <a href="imam-mahdi-dajjal.html" class="nav-btn primary">
+        <span><span class="nav-label">পরবর্তী</span>ইমাম মাহদী ও দাজ্জাল</span>
+        <span>→</span>
+      </a>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <strong style="color:#ffffff">এ হলো ইসলাম</strong> &nbsp;—&nbsp;
+  ইমামুদ্দীন মুহাম্মাদ তোয়াহা বিন হাবীব রচিত &nbsp;|&nbsp;
+  <a href="index.html">হোম</a> &nbsp;|&nbsp;
+  <a href="lekhok-porichiti.html">লেখক পরিচিতি</a>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = doc.scrollTop || document.body.scrollTop;
+  const total = doc.scrollHeight - doc.clientHeight;
+  const pct = total > 0 ? (scrolled / total) * 100 : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+const sizes = { sm:'fs-sm', md:'fs-md', lg:'fs-lg', xl:'fs-xl' };
+function changeFont(s) {
+  const body = document.body;
+  Object.values(sizes).forEach(c => body.classList.remove(c));
+  body.classList.add(sizes[s]);
+  try { localStorage.setItem('eholoislam_fs', s); } catch(e){}
+}
+try {
+  const saved = localStorage.getItem('eholoislam_fs');
+  if (saved && sizes[saved]) changeFont(saved);
+} catch(e){}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('collapsed');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.altKey && e.key === 'ArrowRight') {
+    const next = document.querySelector('.nav-btn.primary');
+    if (next) next.click();
+  }
+  if (e.altKey && e.key === 'ArrowLeft') {
+    const prev = document.querySelector('.nav-btn:not(.primary)');
+    if (prev) prev.click();
+  }
+});
+</script>
+</body>
+</html>

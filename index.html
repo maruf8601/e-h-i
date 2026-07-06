@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>এ হলো ইসলাম — ইমামুদ্দীন মুহাম্মাদ তোয়াহা বিন হাবীব</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --blue:        #0288d1;
+  --blue-mid:    #0277bd;
+  --blue-deep:   #01579b;
+  --blue-light:  #4fc3f7;
+  --blue-pale:   #81d4fa;
+  --blue-bg:     #e1f5fe;
+  --blue-card:   #e3f2fd;
+  --border:      #b3e5fc;
+  --white:       #ffffff;
+  --text-dark:   #1a1a1a;
+  --text-mid:    #424242;
+  --text-muted:  #757575;
+  --font:        'Hind Siliguri', sans-serif;
+  --font-ar:     'Noto Naskh Arabic', serif;
+  --shadow-sm:   0 1px 4px rgba(2,136,209,0.10);
+  --shadow-md:   0 4px 18px rgba(2,136,209,0.14);
+  --radius:      8px;
+  --reading-max: 720px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--white);
+  color: var(--text-dark);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Top Bar */
+.topbar {
+  background: var(--blue-deep);
+  color: rgba(255,255,255,0.9);
+  font-size: 12px;
+  padding: 6px 0;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+.topbar a { color: var(--blue-light); text-decoration: none; }
+
+/* Header */
+header {
+  background: var(--white);
+  border-bottom: 3px solid var(--blue);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 16px;
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-icon {
+  width: 42px; height: 42px;
+  background: var(--blue);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  font-family: var(--font-ar);
+  flex-shrink: 0;
+}
+.logo-text { display: flex; flex-direction: column; }
+.logo-main { font-size: 18px; font-weight: 700; color: var(--blue); line-height: 1.2; }
+.logo-sub  { font-size: 11px; color: var(--text-muted); }
+
+nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+nav a {
+  color: var(--text-mid);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: background .18s, color .18s;
+  white-space: nowrap;
+}
+nav a:hover, nav a.active { background: var(--blue-card); color: var(--blue); font-weight: 600; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-mid) 45%, var(--blue-deep) 100%);
+  padding: 56px 20px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: 'لا إله إلا الله';
+  position: absolute;
+  font-family: var(--font-ar);
+  font-size: 120px;
+  color: rgba(255,255,255,0.06);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.hero-arabic { font-family: var(--font-ar); font-size: 28px; color: #ffffff; margin-bottom: 12px; letter-spacing: 0.05em; }
+.hero h1 { font-size: clamp(28px, 5vw, 48px); font-weight: 700; color: #ffffff; line-height: 1.2; margin-bottom: 10px; }
+.hero-tagline { font-size: 15px; color: rgba(255,255,255,0.9); margin-bottom: 6px; }
+.hero-author { font-size: 14px; color: var(--blue-pale); font-weight: 600; margin-bottom: 28px; }
+.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  background: #ffffff;
+  color: var(--blue-deep);
+  font-weight: 700;
+  font-family: var(--font);
+  font-size: 15px;
+  padding: 12px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity .18s, transform .15s;
+  display: inline-block;
+}
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.6);
+  font-weight: 600;
+  font-family: var(--font);
+  font-size: 15px;
+  padding: 11px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color .18s, background .18s;
+  display: inline-block;
+}
+.btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.15); }
+
+.main { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+
+.section-head {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 20px; padding-bottom: 10px;
+  border-bottom: 2px solid var(--border);
+}
+.section-head h2 { font-size: 20px; font-weight: 700; color: var(--blue-deep); }
+.section-head .badge { background: var(--blue); color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+
+.chapter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin-bottom: 40px; }
+.chapter-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  text-decoration: none;
+  color: var(--text-dark);
+  display: flex; flex-direction: column; gap: 6px;
+  transition: box-shadow .18s, border-color .18s, transform .15s;
+  position: relative; overflow: hidden;
+}
+.chapter-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--blue); opacity: 0; transition: opacity .18s; }
+.chapter-card:hover { box-shadow: var(--shadow-md); border-color: var(--blue-light); transform: translateY(-2px); }
+.chapter-card:hover::before { opacity: 1; }
+.chapter-card:hover .card-title { color: var(--blue-deep); }
+
+.card-eyebrow { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 600; }
+.card-title   { font-size: 15px; font-weight: 600; line-height: 1.4; }
+.card-desc    { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+.card-arrow   { font-size: 16px; color: var(--blue); margin-top: 4px; }
+
+.two-col { display: grid; grid-template-columns: 1fr 320px; gap: 32px; align-items: start; margin-bottom: 40px; }
+@media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+
+.sidebar-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 20px; }
+.sidebar-title { font-size: 15px; font-weight: 700; color: var(--blue-deep); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--blue-card); }
+.sidebar-list { list-style: none; }
+.sidebar-list li { border-bottom: 1px solid #f0f8ff; }
+.sidebar-list li:last-child { border-bottom: none; }
+.sidebar-list a { display: flex; align-items: center; gap: 8px; padding: 9px 4px; text-decoration: none; color: var(--text-mid); font-size: 14px; transition: color .15s; }
+.sidebar-list a:hover { color: var(--blue-deep); }
+.sidebar-list .num {
+  width: 22px; height: 22px; background: var(--blue-card); color: var(--blue-deep);
+  border-radius: 50%; font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+.book-info { background: linear-gradient(135deg, var(--blue-bg), var(--white)); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.book-info h3 { font-size: 16px; color: var(--blue-deep); margin-bottom: 12px; }
+.book-info dl { display: grid; grid-template-columns: 100px 1fr; gap: 6px 12px; font-size: 13px; }
+.book-info dt { color: var(--text-muted); font-weight: 600; }
+.book-info dd { color: var(--text-dark); }
+
+.appendix-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 40px; }
+.appendix-card {
+  background: var(--blue-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  text-decoration: none;
+  color: var(--text-dark);
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; font-weight: 600;
+  transition: box-shadow .18s, transform .15s;
+}
+.appendix-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.appendix-card .icon { font-size: 20px; }
+
+footer {
+  background: var(--blue-deep);
+  color: rgba(255,255,255,0.85);
+  padding: 32px 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+footer .footer-title { font-size: 18px; color: #ffffff; font-weight: 700; margin-bottom: 6px; }
+footer .footer-sub   { font-size: 13px; margin-bottom: 16px; }
+footer a { color: var(--blue-light); text-decoration: none; }
+.footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.75); }
+.footer-links a:hover { color: #ffffff; }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.55); }
+
+@media (max-width: 640px) {
+  .header-inner { height: auto; padding: 12px 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
+  nav { gap: 2px; }
+  nav a { font-size: 13px; padding: 5px 10px; }
+  .hero { padding: 36px 16px 32px; }
+  .chapter-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .chapter-card { padding: 12px 14px; }
+  .card-title { font-size: 14px; }
+  .main { padding: 28px 16px; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .chapter-grid { grid-template-columns: repeat(3, 1fr); }
+  .two-col { grid-template-columns: 1fr 280px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  এই ওয়েবসাইটটি বইটির অনলাইন সংস্করণ — বিনামূল্যে পড়ুন &nbsp;|&nbsp;
+  <a href="lekhok-porichiti.html">লেখক পরিচিতি</a>
+</div>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">إ</div>
+      <div class="logo-text">
+        <span class="logo-main">এ হলো ইসলাম</span>
+        <span class="logo-sub">eholoislam.com</span>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html" class="active">হোম</a>
+      <a href="sotor-o-sabdhan.html">প্রথম অধ্যায়</a>
+      <a href="dik-dorshon.html">দ্বিতীয় অধ্যায়</a>
+      <a href="shesh-kotha.html">পরিশিষ্ট</a>
+      <a href="lekhok-porichiti.html">লেখক</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-arabic">لا إله إلا الله</div>
+  <h1>এ হলো ইসলাম</h1>
+  <p class="hero-tagline">সকল বর্ণের সমাহার, বর্ণবাদ নয় — অন্যরা যা বলে তা নয়</p>
+  <p class="hero-author">ইমামুদ্দীন মুহাম্মাদ তোয়াহা বিন হাবীব রচিত</p>
+  <div class="hero-btns">
+    <a href="sotor-o-sabdhan.html" class="btn-primary">📖 পড়া শুরু করুন</a>
+    <a href="#toc" class="btn-outline">সূচীপত্র দেখুন</a>
+  </div>
+</section>
+
+<main class="main" id="toc">
+  <div class="two-col">
+    <div>
+
+      <div class="section-head">
+        <h2>প্রথম অধ্যায়</h2>
+        <span class="badge">১১টি অধ্যায়</span>
+      </div>
+      <div class="chapter-grid">
+        <a href="sotor-o-sabdhan.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ০১</span>
+          <span class="card-title">সতর্ক ও সাবধান বাণী</span>
+          <span class="card-desc">সত্যের সাক্ষ্য — পূর্ব সতর্কীকরণ</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="mukhobondo.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ০২</span>
+          <span class="card-title">মুখবন্ধ: শাহাদাত</span>
+          <span class="card-desc">বিশ্বাসীর ঈমানের সাক্ষ্য</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="prothom-kotha.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ০৩</span>
+          <span class="card-title">প্রথম কথা</span>
+          <span class="card-desc">বারাকাহ, যায়েদ ও উসামাহ</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="barakah.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ০৪</span>
+          <span class="card-title">বারাকাহ</span>
+          <span class="card-desc">রাসূলের পালক মাতার জীবনকথা</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="zayd-ibn-harithah.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ০৫</span>
+          <span class="card-title">যায়েদ ইব্ন হারিসাহ</span>
+          <span class="card-desc">রাসূলের পালক পুত্রের ইতিহাস</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="imamati.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ০৬</span>
+          <span class="card-title">ইমামতি কি শুধু কোরেশীদের?</span>
+          <span class="card-desc">ঐতিহাসিক প্রশ্নের কুরআনী জবাব</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="e-bilal-ke.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ০৭</span>
+          <span class="card-title">এ বেলাল কে?</span>
+          <span class="card-desc">হাবশী ক্রীতদাস থেকে ইসলামের কণ্ঠস্বর</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="iman-mumin.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ০৮</span>
+          <span class="card-title">ঈমান ও মু'মিন, কুফর ও কাফের</span>
+          <span class="card-desc">সংজ্ঞা, পার্থক্য ও মানদণ্ড</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="radi-allah-anhu.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ০৯</span>
+          <span class="card-title">রাদিআল্লাহু আনহুম কারা?</span>
+          <span class="card-desc">সাহাবীদের মর্যাদার মাপকাঠি</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="imam-mahdi-dajjal.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১০</span>
+          <span class="card-title">ইমাম মাহদী ও দাজ্জাল</span>
+          <span class="card-desc">সত্য ও মিথ্যার চূড়ান্ত লড়াই</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="mujaddid-tajdid.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১১</span>
+          <span class="card-title">মুজাদ্দিদ ও তাজদীদ</span>
+          <span class="card-desc">দীনের পুনরুজ্জীবন ও সংস্কার</span>
+          <span class="card-arrow">›</span>
+        </a>
+      </div>
+
+      <div class="section-head">
+        <h2>দ্বিতীয় অধ্যায়</h2>
+        <span class="badge">১২টি অধ্যায়</span>
+      </div>
+      <div class="chapter-grid">
+        <a href="dik-dorshon.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১২</span>
+          <span class="card-title">দিক দর্শন — তাওহীদ ও ঈমান</span>
+          <span class="card-desc">আদম ও ইবলীস — বর্ণবাদের শিকড়</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="sura-hujurat.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১৩</span>
+          <span class="card-title">সূরা হুজরাত</span>
+          <span class="card-desc">মানব সাম্যের কুরআনী ঘোষণা</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="sura-mumtahinah.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১৪</span>
+          <span class="card-title">সূরা মুমতাহিনাহ</span>
+          <span class="card-desc">পরীক্ষার সূরা — গভীর বিশ্লেষণ</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="sura-tahrim.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১৫</span>
+          <span class="card-title">সূরা তাহরীম</span>
+          <span class="card-desc">বিশ্লেষণ ও শিক্ষা</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="ke-e-abu-bakr-1.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১৬ (পর্ব ১)</span>
+          <span class="card-title">কে এ আবু বকর? (১ম পর্ব)</span>
+          <span class="card-desc">খলিফার সত্য ইতিহাস (প্রথম পর্ব)</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="ke-e-abu-bakr-2.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১৬ (পর্ব ২)</span>
+          <span class="card-title">কে এ আবু বকর? (২য় পর্ব)</span>
+          <span class="card-desc">খলিফার সত্য ইতিহাস (দ্বিতীয় পর্ব)</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="ke-e-abu-bakr-3.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১৬ (পর্ব ৩)</span>
+          <span class="card-title">কে এ আবু বকর? (৩য় পর্ব)</span>
+          <span class="card-desc">মা উম্মাহাতুল মু'মিনীন</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="ke-e-abu-bakr-4.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১৬ (পর্ব ৪)</span>
+          <span class="card-title">কে এ আবু বকর? (৪র্থ পর্ব)</span>
+          <span class="card-desc">মা আয়িশা, হাফসা ও অন্যান্য</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="salman-farsi.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১৭</span>
+          <span class="card-title">সালমান ফার্সী</span>
+          <span class="card-desc">পারস্য থেকে মদীনার পথে</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="ihsaner-suful.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১৮</span>
+          <span class="card-title">ইহসানের সুফল ও বিদআতের কুফল</span>
+          <span class="card-desc">বিশেষ পর্যালোচনা</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="shamshul-haq.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ১৯</span>
+          <span class="card-title">শামসুল হক ফরীদপুরী</span>
+          <span class="card-desc">বিশেষ আলোচনা</span>
+          <span class="card-arrow">›</span>
+        </a>
+        <a href="manob-jatir-utso.html" class="chapter-card">
+          <span class="card-eyebrow">অধ্যায় ২০</span>
+          <span class="card-title">মানব জাতির উৎস, বিকাশ ও নাশ</span>
+          <span class="card-desc">বর্ণবাদ বনাম ইসলাম</span>
+          <span class="card-arrow">›</span>
+        </a>
+      </div>
+
+      <div class="section-head">
+        <h2>পরিশিষ্ট</h2>
+      </div>
+      <div class="appendix-grid">
+        <a href="shesh-kotha.html" class="appendix-card"><span class="icon">📝</span> শেষ কথা, মূল কথা ও আত্মস্বীকৃতি</a>
+        <a href="barakah-foundation.html" class="appendix-card"><span class="icon">🏛️</span> বারাকাহ ফাউন্ডেশন</a>
+        <a href="bisesh-ghoshona.html" class="appendix-card"><span class="icon">📢</span> বিশেষ ঘোষণা</a>
+        <a href="joruri-gyatobbo.html" class="appendix-card"><span class="icon">📚</span> জরুরি জ্ঞাতব্য ও প্রমাণ সূত্র</a>
+        <a href="lekhok-porichiti.html" class="appendix-card"><span class="icon">✍️</span> লেখক পরিচিতি</a>
+      </div>
+
+    </div>
+
+    <aside>
+      <div class="book-info">
+        <h3>📖 বই সম্পর্কে</h3>
+        <dl>
+          <dt>লেখক</dt><dd>ইমামুদ্দীন মুহাম্মাদ তোয়াহা বিন হাবীব</dd>
+          <dt>প্রকাশ</dt><dd>জুন ২০০৩</dd>
+          <dt>মোট অধ্যায়</dt><dd>২৮টি</dd>
+          <dt>ভাষা</dt><dd>বাংলা</dd>
+          <dt>বিষয়</dt><dd>ইসলামী ইতিহাস, তাওহীদ, মানব সাম্য</dd>
+        </dl>
+      </div>
+
+      <div class="sidebar-box" style="margin-top:16px">
+        <div class="sidebar-title">⚡ দ্রুত পড়ুন</div>
+        <ul class="sidebar-list">
+          <li><a href="barakah.html"><span class="num">১</span> বারাকাহ</a></li>
+          <li><a href="zayd-ibn-harithah.html"><span class="num">২</span> যায়েদ ইব্ন হারিসাহ</a></li>
+          <li><a href="e-bilal-ke.html"><span class="num">৩</span> এ বেলাল কে?</a></li>
+          <li><a href="sura-hujurat.html"><span class="num">৪</span> সূরা হুজরাত</a></li>
+          <li><a href="imam-mahdi-dajjal.html"><span class="num">৫</span> ইমাম মাহদী ও দাজ্জাল</a></li>
+          <li><a href="ke-e-abu-bakr-1.html"><span class="num">৬</span> কে এ আবু বকর?</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-box" style="margin-top:16px; background: var(--blue-deep); color: #fff; border-color: var(--blue-deep);">
+        <div style="font-size:14px; font-weight:700; color:#ffffff; margin-bottom:10px;">বইটির মূল বার্তা</div>
+        <p style="font-size:13px; color:rgba(255,255,255,0.9); line-height:1.7;">
+          ১৪১২ বছরের মিথ্যার বন্দিখানা ভেঙে, কুরআনী ইসলামের আলো জ্বালানোর অকুতোভয় প্রয়াস।
+          সকল বর্ণের সমাহার, বর্ণবাদ নয়।
+        </p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-title">এ হলো ইসলাম</div>
+  <div class="footer-sub">ইমামুদ্দীন মুহাম্মাদ তোয়াহা বিন হাবীব রচিত</div>
+  <div class="footer-links">
+    <a href="index.html">হোম</a>
+    <a href="sotor-o-sabdhan.html">প্রথম অধ্যায়</a>
+    <a href="dik-dorshon.html">দ্বিতীয় অধ্যায়</a>
+    <a href="lekhok-porichiti.html">লেখক পরিচিতি</a>
+  </div>
+  <div class="footer-copy">eholoislam.com &copy; ২০২৫ — বিনামূল্যে পড়ুন</div>
+</footer>
+
+</body>
+</html>

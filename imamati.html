@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ইমামতি কি শুধু কোরেশীদের? — এ হলো ইসলাম</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --blue:        #0288d1;
+  --blue-mid:    #0277bd;
+  --blue-deep:   #01579b;
+  --blue-light:  #4fc3f7;
+  --blue-pale:   #81d4fa;
+  --blue-bg:     #e1f5fe;
+  --blue-card:   #e3f2fd;
+  --border:      #b3e5fc;
+  --white:       #ffffff;
+  --text-dark:   #1a1a1a;
+  --text-mid:    #424242;
+  --text-muted:  #757575;
+  --font:        'Hind Siliguri', sans-serif;
+  --font-ar:     'Noto Naskh Arabic', serif;
+  --shadow-sm:   0 1px 4px rgba(2,136,209,0.10);
+  --shadow-md:   0 4px 18px rgba(2,136,209,0.14);
+  --radius:      8px;
+  --reading-max: 720px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--white); color: var(--text-dark); font-size: 17px; line-height: 1.95; }
+
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-light));
+  width: 0%; z-index: 999; transition: width 0.1s linear;
+}
+
+header {
+  background: var(--white);
+  border-bottom: 2px solid var(--blue);
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+.header-inner { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
+.logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.logo-icon {
+  width: 36px; height: 36px; background: var(--blue); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 15px; font-family: var(--font-ar); flex-shrink: 0;
+}
+.logo-text { font-size: 15px; font-weight: 700; color: var(--blue-deep); }
+
+.header-actions { display: flex; align-items: center; gap: 8px; }
+.font-btn {
+  background: var(--blue-bg); border: 1px solid var(--border); border-radius: 6px;
+  padding: 5px 10px; font-family: var(--font); font-size: 13px; color: var(--blue-deep);
+  cursor: pointer; transition: background .15s;
+}
+.font-btn:hover { background: var(--blue-card); }
+
+.page-layout {
+  max-width: 1100px; margin: 0 auto; padding: 32px 20px;
+  display: grid; grid-template-columns: 240px 1fr; gap: 32px; align-items: start;
+}
+@media (max-width: 1024px) { .page-layout { grid-template-columns: 220px 1fr; gap: 20px; padding: 24px 16px; } }
+@media (max-width: 900px) { .page-layout { grid-template-columns: 1fr; } }
+
+.sidebar { position: sticky; top: 72px; }
+.sidebar-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
+.sidebar-title { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.toc-list { list-style: none; }
+.toc-list li { margin-bottom: 2px; }
+.toc-list a { display: block; padding: 6px 8px; border-radius: 6px; text-decoration: none; color: var(--text-mid); font-size: 13px; line-height: 1.4; transition: background .15s, color .15s; }
+.toc-list a:hover { background: var(--blue-card); color: var(--blue-deep); }
+.toc-list a.current { background: var(--blue); color: #fff; font-weight: 600; }
+.toc-list .ch-num { font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 1px; }
+.toc-list a.current .ch-num { color: rgba(255,255,255,0.75); }
+
+.reading-area { min-width: 0; }
+
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); margin-bottom: 20px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--blue-deep); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb .sep { color: var(--border); }
+
+.chapter-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--blue-card); border: 1px solid var(--border); border-radius: 20px;
+  padding: 4px 14px; font-size: 12px; font-weight: 700; color: var(--blue-deep);
+  margin-bottom: 12px; text-transform: uppercase; letter-spacing: .05em;
+}
+
+.chapter-title { font-size: clamp(22px, 4vw, 34px); font-weight: 700; color: var(--text-dark); line-height: 1.25; margin-bottom: 20px; border-bottom: 3px solid var(--blue); padding-bottom: 16px; }
+
+.reading-stats { display: flex; gap: 20px; margin-bottom: 28px; padding: 12px 16px; background: var(--blue-bg); border: 1px solid var(--border); border-radius: var(--radius); flex-wrap: wrap; }
+.stat { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+.stat strong { color: var(--text-dark); font-size: 13px; }
+
+.article-body { font-family: var(--font); font-size: var(--fs, 17px); line-height: 2; color: var(--text-dark); max-width: var(--reading-max); }
+.article-body p { margin-bottom: 1.3rem; text-align: justify; hyphens: auto; }
+.article-body h2 { font-size: 22px; font-weight: 700; color: var(--blue-deep); margin: 2.5rem 0 1rem; padding-bottom: 8px; border-bottom: 2px solid var(--blue-card); }
+.article-body h3 { font-size: 18px; font-weight: 600; color: var(--blue-mid); margin: 2rem 0 0.75rem; }
+.article-body blockquote { border-left: 4px solid var(--blue); background: var(--blue-bg); padding: 14px 18px; margin: 1.5rem 0; border-radius: 0 var(--radius) var(--radius) 0; font-size: 15px; color: var(--blue-deep); }
+.article-body a { color: var(--blue-deep); }
+.arabic-verse {
+  font-family: var(--font-ar); font-size: 1.35rem; line-height: 2.3;
+  text-align: right; direction: rtl;
+  background: var(--blue-bg); border-right: 4px solid var(--blue);
+  padding: 14px 18px 14px 12px; margin: 1.5rem 0;
+  border-radius: 8px 0 0 8px; color: var(--blue-deep);
+}
+
+.chapter-nav {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  margin-top: 48px; padding-top: 24px; border-top: 2px solid var(--border); flex-wrap: wrap;
+}
+.nav-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--white); border: 2px solid var(--border); border-radius: var(--radius);
+  padding: 10px 18px; text-decoration: none; color: var(--text-mid);
+  font-size: 14px; font-weight: 600; font-family: var(--font);
+  transition: border-color .18s, color .18s, background .18s, transform .15s; cursor: pointer;
+}
+.nav-btn:hover { border-color: var(--blue); color: var(--blue-deep); background: var(--blue-card); transform: translateY(-1px); }
+.nav-btn.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+.nav-btn.primary:hover { background: var(--blue-mid); border-color: var(--blue-mid); color: #fff; }
+.nav-btn .nav-label { font-size: 11px; color: var(--text-muted); display: block; font-weight: 400; }
+.nav-btn.primary .nav-label { color: rgba(255,255,255,0.75); }
+.nav-center { text-align: center; }
+.nav-center a { font-size: 13px; color: var(--text-muted); text-decoration: none; border-bottom: 1px dashed var(--border); }
+.nav-center a:hover { color: var(--blue-deep); }
+
+footer { background: var(--blue-deep); color: rgba(255,255,255,0.85); padding: 24px 20px; text-align: center; margin-top: 40px; font-size: 13px; }
+footer a { color: var(--blue-light); text-decoration: none; }
+
+.fs-sm { --fs: 15px; }
+.fs-md { --fs: 17px; }
+.fs-lg { --fs: 20px; }
+.fs-xl { --fs: 23px; }
+
+.sidebar-toggle {
+  display: none; background: var(--blue-card); border: 1px solid var(--border); border-radius: 6px;
+  padding: 6px 12px; font-family: var(--font); font-size: 13px; color: var(--blue-deep);
+  cursor: pointer; margin-bottom: 16px;
+}
+@media (max-width: 900px) {
+  .sidebar-toggle { display: block; }
+  .sidebar { position: static; }
+  .sidebar.collapsed .sidebar-box:not(:first-child) { display: none; }
+}
+@media (max-width: 600px) {
+  .chapter-title { font-size: 22px; }
+  .reading-stats { gap: 12px; }
+  .chapter-nav { flex-direction: column; }
+  .nav-btn { width: 100%; justify-content: center; }
+  .nav-center { width: 100%; }
+}
+
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">إ</div>
+      <span class="logo-text">এ হলো ইসলাম</span>
+    </a>
+    <div class="header-actions">
+      <button class="font-btn" onclick="changeFont('sm')">ক ছোট</button>
+      <button class="font-btn" onclick="changeFont('md')">ক</button>
+      <button class="font-btn" onclick="changeFont('lg')">ক বড়</button>
+      <button class="font-btn" onclick="changeFont('xl')">ক বড়+</button>
+    </div>
+  </div>
+</header>
+
+<div class="page-layout">
+
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰ সূচীপত্র</button>
+    <div class="sidebar-box">
+      <div class="sidebar-title">প্রথম অধ্যায়</div>
+      <ul class="toc-list">
+<li><a href="sotor-o-sabdhan.html"><span class="ch-num">অধ্যায় ০১</span>সতর্ক ও সাবধান বাণী</a></li>
+<li><a href="mukhobondo.html"><span class="ch-num">অধ্যায় ০২</span>মুখবন্ধ: শাহাদাত</a></li>
+<li><a href="prothom-kotha.html"><span class="ch-num">অধ্যায় ০৩</span>প্রথম কথা</a></li>
+<li><a href="barakah.html"><span class="ch-num">অধ্যায় ০৪</span>বারাকাহ</a></li>
+<li><a href="zayd-ibn-harithah.html"><span class="ch-num">অধ্যায় ০৫</span>যায়েদ ইব্ন হারিসাহ</a></li>
+<li><a href="imamati.html" class="current"><span class="ch-num">অধ্যায় ০৬</span>ইমামতি কি শুধু কোরেশীদের?</a></li>
+<li><a href="e-bilal-ke.html"><span class="ch-num">অধ্যায় ০৭</span>এ বেলাল কে?</a></li>
+<li><a href="iman-mumin.html"><span class="ch-num">অধ্যায় ০৮</span>ঈমান ও মু'মিন, কুফর ও কাফের</a></li>
+<li><a href="radi-allah-anhu.html"><span class="ch-num">অধ্যায় ০৯</span>রাদিআল্লাহু আনহুম কারা?</a></li>
+<li><a href="imam-mahdi-dajjal.html"><span class="ch-num">অধ্যায় ১০</span>ইমাম মাহদী ও দাজ্জাল</a></li>
+<li><a href="mujaddid-tajdid.html"><span class="ch-num">অধ্যায় ১১</span>মুজাদ্দিদ ও তাজদীদ</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-box">
+      <div class="sidebar-title">দ্বিতীয় অধ্যায়</div>
+      <ul class="toc-list">
+<li><a href="dik-dorshon.html"><span class="ch-num">অধ্যায় ১২</span>দিক দর্শন — তাওহীদ ও ঈমান</a></li>
+<li><a href="sura-hujurat.html"><span class="ch-num">অধ্যায় ১৩</span>সূরা হুজরাত</a></li>
+<li><a href="sura-mumtahinah.html"><span class="ch-num">অধ্যায় ১৪</span>সূরা মুমতাহিনাহ</a></li>
+<li><a href="sura-tahrim.html"><span class="ch-num">অধ্যায় ১৫</span>সূরা তাহরীম</a></li>
+<li><a href="ke-e-abu-bakr-1.html"><span class="ch-num">অধ্যায় ১৬ (পর্ব ১)</span>কে এ আবু বকর? (১ম পর্ব)</a></li>
+<li><a href="ke-e-abu-bakr-2.html"><span class="ch-num">অধ্যায় ১৬ (পর্ব ২)</span>কে এ আবু বকর? (২য় পর্ব)</a></li>
+<li><a href="ke-e-abu-bakr-3.html"><span class="ch-num">অধ্যায় ১৬ (পর্ব ৩)</span>কে এ আবু বকর? (৩য় পর্ব)</a></li>
+<li><a href="ke-e-abu-bakr-4.html"><span class="ch-num">অধ্যায় ১৬ (পর্ব ৪)</span>কে এ আবু বকর? (৪র্থ পর্ব)</a></li>
+<li><a href="salman-farsi.html"><span class="ch-num">অধ্যায় ১৭</span>সালমান ফার্সী</a></li>
+<li><a href="ihsaner-suful.html"><span class="ch-num">অধ্যায় ১৮</span>ইহসানের সুফল ও বিদআতের কুফল</a></li>
+<li><a href="shamshul-haq.html"><span class="ch-num">অধ্যায় ১৯</span>শামসুল হক ফরীদপুরী</a></li>
+<li><a href="manob-jatir-utso.html"><span class="ch-num">অধ্যায় ২০</span>মানব জাতির উৎস, বিকাশ ও নাশ</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-box">
+      <div class="sidebar-title">পরিশিষ্ট</div>
+      <ul class="toc-list">
+<li><a href="shesh-kotha.html">শেষ কথা, মূল কথা ও আত্মস্বীকৃতি</a></li>
+<li><a href="barakah-foundation.html">বারাকাহ ফাউন্ডেশন</a></li>
+<li><a href="bisesh-ghoshona.html">বিশেষ ঘোষণা</a></li>
+<li><a href="joruri-gyatobbo.html">জরুরি জ্ঞাতব্য ও প্রমাণ সূত্র</a></li>
+<li><a href="lekhok-porichiti.html">লেখক পরিচিতি</a></li>
+      </ul>
+    </div>
+  </aside>
+  <main class="reading-area">
+    <nav class="breadcrumb">
+      <a href="index.html">হোম</a>
+      <span class="sep">›</span>
+      <a href="index.html#toc">প্রথম অধ্যায়</a>
+      <span class="sep">›</span>
+      <span>ইমামতি কি শুধু কোরেশীদের?</span>
+    </nav>
+
+    <div class="chapter-label">প্রথম অধ্যায় &nbsp;·&nbsp; অধ্যায় ০৬</div>
+    <h1 class="chapter-title">ইমামতি কি শুধু কোরেশীদের?</h1>
+
+    <div class="reading-stats">
+      <div class="stat">📄 <strong>১৭৪৪ শব্দ</strong></div>
+      <div class="stat">⏱ <strong>প্রায় ১০ মিনিট</strong> পড়ার সময়</div>
+      <div class="stat">📖 <strong>৬ / ২৮</strong> অধ্যায়</div>
+    </div>
+
+    <article class="article-body" id="article">
+<p>ইমামতী কি শুধু কৌরেশীদের?</p>
+<p>কিন্তু তার বিদায়ের পর মুন্ুর্তেই তার রেখে যাওয়া এক্যে ফাটল ধরিয়ে “আল আইনম্মাতু মিন্‌ কৌরেশ” বা “ইমামতি কৌরেশদের” বলে ইসলামী এঁক্যকে জবাই করে দু'টুকরা করে ফেলা হয়। যে রাসূল সঃ আজীবন কোরেশী কুফর, নেফাক, শির্ক ও গোত্র পূজার বিরুদ্ধে সংগ্রাম করে তাকে সম্পূর্ণরূপে পরাজিত করে নির্মল করে গেলেন, ঠিক তারই নামে এ কসাইর ছুরী চালানো হলো! কে, বা কারা, কিভাবে এ সর্বনাশা কথা বলে মুস্লিম্‌ উম্মাহর গলায় ছুরী বিপ্লব সংঘটিত করতে হলে অবশ্যই রাসূল সঃ এর মূল আদর্শে ফেরৎ যেতে হবে । অন্যথা মুক্তি নেই। কৌরেশীরা চিরতরে মাদীনার লোকদের উপর তাদের উপনিবেশ চাপিয়ে দিলো । চার খলীফাহ্‌ কোরেশী, উমরের ৬ জন উপদেষ্টা, সবাই কোরেশী এবং আশারায়ে মুবাশৃশারা সবাই কোরেশী! একি ভাবা যায়? কৌর্আন ও রাসূল সঃ এর জিন্দেগী সবই মিথ্যা, “আর কৌরেশীবাদ” সত্য? এ কৌরেশীবাদের জন্য আলী ও আবু বকর এবং উমরের মধ্যে খেলাফত নিয়ে চরম বিবাদ হয়। যদি কৌরেশীবাদই ইসলামী নেতৃতের ভিত হয়, তাহলে আলীই সবচেয়ে বড় হকৃদার ছিলো । কারণ, আলী কৌরেশী, হাশেমী ও নবী সঃ এর জামাতা! এ কথা আদৌ সত্য হলে, নাউযুবিল্লাহ, তা আলীর মুখ থেকেই বের হতো। আলী তো কখনো তা বলেনি! রাসূল পৃথিবী থেকে বিদায় নিয়ে গিয়েছেন। কৌরেশী অকৌরেশী বিবাদে ইসলামী এঁক্য ভেঙ্গে টুকরা টুকরা হয়ে গেলো । তার ফীকে অন্যান্য গোত্রবাদ মাথা চাড়া দিয়ে উঠলো এবং এমনকি কিছু আরবরা যাকাৎ দিতে অস্বীকার করে বসলো। কোনো কোনো গোত্র তাদের নুতন নবীও ঘোষণা করলো। এদেরকে কৌরেশের খলিফা ও তার লোকেরা মুর্তাদ, মুন্‌কিরে যাকাত ও নবুওয়াতের দাবীদাররূপে আখ্যায়িত করলো । অপর দিকে রাসূল সঃ এর হাতে বাঁধা যুদ্ধের পতাকা নিয়ে তার নিয়োগকৃত সেনাপতি অপেক্ষা করছে। রাসূল সঃ বিদায় নিতে না নিতেই পূর্বের বিরোধিতাকারীরা পুনঃ প্রশ্ন তুললো, “উসামাহকে বদ্লাও, তার যুদ্ধ বাতিল করো, না হয় তা স্থগিত করো” । এরা কারা? এরা কোন জাত? এরা কিসের উম্মত? এবার তাদের আভিজাত্যের দাবীর সাথে তারা আরেকটি জোরালো যুক্তি দীড় করালো যে, নবী সঃ এর মৃত্যুর পর র বিদ্রোহের ফলে রাজধানী মাদীনাই অরক্ষিত এবং হুমূকির সম্মুখীন। অথচ সকল বিদ্রোহের মূলে তারা নিজেরা! এ চরম ক্রান্তিলগ্নে নতুন কৌরেশী খলিফা আবু বকর এক অনন্য সাধারণ কাজ করে পরিস্থিতি নিয়ন্ত্রণ করে। তা হলো রাসূল সঃ এর নির্দেশ ও কঠোর হুশিয়ারী অনুযায়ী উসামাহ্‌র বাহিনী প্রেরণ করা । উমরসহ অন্যান্যদের কথা উপেক্ষা করে আবু বকর উসামাহ্‌ বাহিনী পাঠায়। যায়দের বাহিনীর কান্ড দেখেই রোমান বাহিনী বুঝতে পেরেছিলো যে পরের বাহিনী কি করতে পারে । উসামাহ্‌র তিরিশ হাজার সৈনিকের আগমন বার্তা পেয়েই রোমান সম্রাট তার বাহিনী তুলে নিয়ে যায় । ফলে বুস্রার রাজা একা পড়ে যায়। সে রাজ্য ত্যাগ করে পালিয়ে যায় এবং সম্পূর্ণ সমৃদ্ধ এলাকা বিনা যুদ্ধে উসামাহ্‌র করতল গত হয়। চল্লিশ হাজার উটসহ বিরাট পরিমাণ গনিমতের মাল নিয়ে উসামাহ্‌ ফিরে আসে । আল্লাহ্‌র রাসূল সঃ এর একটি হুকুম যথাযথ পালনের ফলে এতো বড়ো বরকত নেমে আসে । কৌরেশদের নুতন সাম্রাজ্য প্রতিষ্ঠার বিরোধী অন্যান্য আরবরা ভেবেছিলো যে, যায়দের সেনা বাহিনী তাদের দৃষ্টিতে যেভাবে নির্মূল হয়েছে, রোমানদের হাতে উসামাহ্‌র বাহিনী তার চেয়েও শোচনীয়ভাবে পরাজিত ও নিরুল হবে। যদি তাই হয়, তা হলে তারা আক্রমণ করে মাদীনায় প্রতিষ্ঠিত কৌরেশদের সহজেই পরাজিত করে নির্মূল করতে সক্ষম হবে। কিন্তু আল্লাহ্‌র রাসূলের অন্তিম কালের একটি হুকুম ঠিকমতো পালন করার বরকতে কৌরেশদের গোত্রবাদী খেলাফত সে যাত্রা রক্ষা পেয়ে যায়। খলিফা আবু বকর তার কোরেশী সঙ্গীদের কথামতো উসামাহ বাহিনীকে প্রেরণ বাতিল করলেই আল্লাহ্‌র গযবে সব নিশ্চিহ্ন হয়ে যেতো। পরে খেলাফতের নামে তিরিশ বছর পর্যন্ত ইসলাম ও নব্য কৌরেশবাদের যে জগাখিচুড়ী চালু হয়ে পরে তা নগ্ন রাজতন্ত্রের জন্য দিয়ে, সারা বিশ্বে আরবী ইসলাম, রাজকীয় ও</p>
+<p>সাম্রাজ্যবাদী ইসলাম নামে যে মহা ফেতনা চালু হয়, তা আদৌ হতো না। বর্তমানে ইসলামের নামে যে ধর্ম চালু আছে এবং মুসলমান নামে যে জাতি আছে, তার সাথে আল্লাহ্‌ ও তাঁর রাসূল সঃ এর মূল দ্বীনের কোনো মিল নেই। এ সব কোরেশী, আরবী, উমাইয়া, আব্বাসী, তুকী, মুঘল ও পাঠানদের ধর্মের আলখেল্লায় দাজ্জালী সাম্রাজ্যবাদ বৈ কিছুই নয়। রাসূল সঃ যে বলেছেন, তাঁর আরব শিষ্যরা তাঁর মৃত্যুর পর ইয়াহুদী খৃষ্টানদের পদাঙ্কানুসারী হবে এবং তাদের মধ্যে থেকে নূতন তিরিশটি দাজ্জাল আবির্ভূত হবে, এরা সব তারা?</p>
+<p>শেষ নবী সঃ এর প্রতিষ্ঠিত বারাকাহ্‌, যায়দ, বেলাল, আম্মার, সুহাইব, ইবনে মাস্উদ, সালেম, সালমান ও উসামাহদের কোরেশী উমাইয়ারা এক এক করে নেতৃতৃ থেকে নির্মূল করে ভিন্ন নামে উমাইয়া, উত্বা, শাইবা, আবু লাহ্‌ব্‌, আবু জেহল ও আবু সুফ্যানদেরই পুনর্বাসিত করে। শুধু পার্থক্য হলো যে উত্বা, শাইবা, উমাইয়া ও আবু জেহল প্রভৃতি নামের স্থলে কৌরেশী নেতৃতৃ ইসলামী পোষাকে বনু উমাইয়া, বনু আব্বাস, শিয়া, সুনী, হানাফী, শাফেয়ী, হাম্বলী ও মালেকী নামকরণ করেছে। বিশ্বনবী সঃ বিশ্বগ্রাসী তাওহীদী ঢেউ তুলে দিয়ে যান, সে ঢেউয়ের মাথায় চড়ে আরবরা ইসলামের নামে তাদের জাহেলিয়্যাতকে বিস্তার করে আসল ইসলামকে কলঙ্কিত করে। যার ফলে আজ পর্যন্ত বিশ্বময় কোটি কোটি মুসলিম জনতা অহেতুক খেসারত দিয়ে যাচ্ছে।</p>
+<p>রাসূল সঃ এর মক্কাহ বিজয়ের পূর্বক্ষণ থেকে এ যড়যন্ত্র আরম্ত হয়। মক্কা বিজয়ের দু'দিন পূর্বে ছদ্মবেশী আব্বাস প্রথম রাসূল সাল্লাল্লাহু আলাইহি ওয়াসাল্লামের তাবুতে অনুপ্রবেশ করে। মক্কাহ বিজয়ের পূর্বরাতে আব্বাস তার বন্ধু আবু সুফ্যানকে সুকৌশলে অনুপ্রবেশ করায় । আবু সুফ্য়ান যখন রাসূল সঃ এর মাক্কাহ বিজয়কে আব্বাসের ভাতিজার “রাজত্ব প্রতিষ্ঠা” বলে মন্তব্য করলো, এরপর আব্বাসের মধ্যে ঈমানের এক তিল থাক্লেও সে আবু সুফ্যানকে বাঁচানোর চেষ্টা করতো না। আবু সুফ্যানকে তখনই শিরোচ্ছেদ করে ইস্লামের চিরশত্রুকে নির্মূল করার উমরের প্রস্তাবের বিরুদ্ধে রাসূল সঃ এর সম্মুখে আব্বাস যে সমস্ত কথা উমরকে বলেছে, বোখারীতে বর্ণিত সে বিবরণ পড়লে যে কোনো বিবেকবান বুঝবে যে, সুদখোর আব্বাস কী ষড়যন্ত্রইনা তখন করেছিলো? তায়েফের হুনাইনের যুদ্ধে রাসূল সঃ এর বিপর্যয় দেখে আবু সুফয়ান তার বন্ধু আব্বাসকে যে পরামর্শ দিয়েছিলো, তাও কি বিবেকবানদের বুঝার জন্য যথেষ্ট নয়? কেনইবা রাসূল সঃ এর ইন্তেকালের মাত্র তিরিশ বছরের মাথায় রাসূল সঃ এর সকল খাঁটি সঙ্গীরা নির্মূল ও উৎখাত হয়ে আবু সুফ্য়ান ও আব্বাস যুগলের পারিবারিক সাম্রাজ্যের পত্তন হয়? এ গুলো কি এমনিতেই বাতাসে হয়েছে? কারা এ গুলোকে হালাল বানানোর উদ্দেশ্যে রাসূল সঃ এর নামে মিথ্যা হাদিস বানালো, যে, “আমার মৃত্যুর পর তিরিশ বছর খেলাফত চলবে, তারপর রাজতন্ত্র”? আখেরী নবী সঃ এর আদর্শ মাত্র তিরিশ বছর চলার পর কি কেয়ামত পর্যন্ত শয়তানের রাজত্ব প্রতিষ্ঠার জন্য আল্লাহ্‌ তাঁর আখেরী নবী পাঠিয়েছিলেন?</p>
+<p>মক্কা বিজয়ের পর এ বীধকাটা ইদুরজোড়া আব্বাস ও আবু সুফ্য়ান মুসলিমদের শিবিরে প্রবেশ করে তীবুর রশিকাটা আরম্ভ করে। রাসূল সঃ তা টের পান। তিনি বিজয়ের সময় সাধারণ ক্ষমায় এদের প্রাণ ভিক্ষা দেন সত্যি, কিন্তু তিনি তাঁর জীবদ্দশায় আব্বাসকে বিশ্বাস করে কোনো দায়িতৃ দেননি । আব্বাস বহুবার কৌশলে ঢুকতে চেষ্টা করেছে, কিন্তু ভদ্রতা, শারাফত্‌ ও লাজের মূর্তপ্রতীক রাসূল সঃ প্রত্যেক বার নম্র অথচ দৃঢ়ভাবে তা প্রত্যাখ্যান করেছেন। আব্বাস সর্বদা “রাসূলের চাচা” সমন্ধের সুযোগ নিতে সচেষ্ট ছিলো। রাসূল সঃ এর নবুওতী জীবনের ২৩ বছরের একুশ বছরই আব্বাস্‌ আবু সুফ্য়ানের যুগল নেতৃত়ের কুফরীর দ্বারা বিষিত ছিলো। তাই রাসূল সঃ তাঁর চাচার পাহাড় পরিমাণ পাপের জন্য উম্মতকে সতর্ক করে বলেছেন “আল্লাহ্‌ আব্বাস ও তার সন্তানদের হেদায়েত করে ক্ষমার পথ দেখাও ।”</p>
+<p>অপরদিকে আবু সুফ্য়ানকে রাসূল সঃ ক্ষমা করে প্রাণে রক্ষা করলেও কখনো তাকে পাত্তা দেননি, কাছে ভিড়তেও দেননি । আগ বেড়ে আবু সুফ্য়ান কিছু বলতে চাইলে হুজুর সঃ বলতেন, এ ₹১। 43] +« 4০ “মাহ্‌, মাহ, ইন্নাকাম্রুউন্‌ ফীকা জাহিলিয়্যাহ্‌” থামো থামো, তুমি তো জাহেলিয়্যাতের প্রতীক।</p>
+<p>মক্কাহ বিজয়ের পর ভন্ডামী করে মুহাজির সেজে মাদীনায় আস্তে চাইলে রাসূল সঃ বলেন “লা হিজ্রাতা বা'দাল আব্বাস আবু সুফ্য়ানরা আনসার ও মোহাজেরদের মাঝে ফাটল সৃষ্টি করতে না পারে। কিন্ত এরা তাতেই সচেষ্ট ছিলো।</p>
+<p>মাদীনায় হিজ্রতের পর রাসূল সঃ যে সমস্ত যুদ্ধে যাননি, তার মধ্যে প্রত্যেকটি গুরুত্বপূর্ণ যুদ্ধে তিনি যায়দকেই সেনাপতি করে পাঠাতেন। তখন কখনো যায়দের সেনাপতিত্ের কোনো বিরোধিতা হয়নি। কিন্তু মন্কা বিজয়েরর পর যখন আব্বাস ও তার পরিবার, আবু সুফ্ইয়ান ও তার পরিবার এবং হাকাম্‌ ও তার পরিবার মাদীনায় ইসলামের এক্যবদ্ধ সমাজে প্রবেশাধিকার পায়, তখনই এ ইদুরগুলো এক্যের বাঁধন কেটে কেটে পুনঃ জাহিলিয়্যাতের বর্ণ, গোত্র ও জাতি বিরোধের বীজ ছড়াতে আরম্ভ করে। তাই রাসূল কর্তৃক যায়দ ও উসামাহ্‌কে সেনাপতি নিয়োগের বিরুদ্ধে অসন্তোষ সৃষ্টির মতো ঘটনা ঘটে, যা মুসলিম সমাজে অকল্পনীয় । রাসূল সঃ তীর ইন্তেকালের পূর্বে তা" টের পান। বেলাল, আম্মার, ইব্‌ন মাসউদ, যায়দ, সালমান, সুহাইব, সালেম, সাওবান ও উসামাহ্‌, যাদের দ্বারা রাসুল সঃ এর নবুওতের ঘর রচিত হয়েছিলো, তারাও এ পরিবর্তনের লক্ষণ টের পায়। রাসূল সঃ সে সময়টায় খুব চিন্তিত হয়ে পড়েন এবং সে সময়টায়ই তিনি বেশী বেশী তীর অনুসারীদের সতর্ক করেন এ বলে যে “আমার বিদায়ের সময় ঘনিয়ে আসছে। আমার কেবলই আশঙ্কা হচ্ছে যে, তোমরা আমার মৃত্যুর পর ইয়াহুদী খৃষ্টানদের মতো বিভক্ত হয়ে আবার জাহিলিয়্যাতে ফেরত যাবে ।” (মুয়াত্তা, বোখারী, মুসলিম)</p>
+<p>তাই রাসূল সঃ তাঁর মৃত্যুর পূর্বক্ষণে মারওয়ান, তার বাপ, মা ও ভাইদেরসহ পুরো পরিবারকে মাদীনাহ্‌ থেকে নির্বাসিত করেন। অপর কিছু লোককে ধরতে পারলে কৃতলের নির্দেশ দেন এবং ঘোষণা দিয়ে যান যে,“লা ইউসাকিন্নাবাদ”এরা কখনো আমাদের সমাজে ফেরৎ আস্তে পারবেনা । এরা সবাই কৌরেশের উমাইয়্যা গোত্রের ছিলো এরা সবাই রাসূল সঃ এর পেছনে তার চলাফেরা ও কথাবার্তা নিয়ে ঠান্টা মশকরা করতো ।</p>
+<p>রাসূল সঃ ইন্তেকাল করার সঙ্গে সঙ্গেই যখন রাসূলের বরকত্‌ মাতা বারাকাহ বলেন, “আহ্‌ অহী আসার সিল্সিলা কেটে গেলো” তখনো তাঁর লাশ দাফন হয়নি । দুষ্ট কুচক্রী আবু সুফ্ইয়ান কুমন্ত্রনা দিয়ে আব্বাসকে আলীর কাছে পাঠায়। আব্বাস এসে আলীকে বলে “আলী, হাত বাড়াও আমি তোমার হাতে বায়আত্‌ হই । তাহলে লোকেরা বলবে, রাসূলের চাচা আলীর হাতে যখন বায়আত হয়েছে, তখন আমরাও গিয়ে বায়আত হই । তাহলে ক্ষমতা ও কর্তৃত এবং নেতৃত্ব বনী হাশিমের ঘরই রয়ে যাবে, অন্যরা দখল করতে পারবেনা । বনী হাশিমের ঘরেই সাম্রাজ্য রয়ে যাবে ।” আলী যে আর বনী হাশিমের নেই। সে যে রাসূলের তারবিয়াত ও প্রশিক্ষণে মুস্লিম হয়ে গিয়েছে এ কথা বুঝার শক্তি সুদখোর মহাজন আব্বাস ও তার বন্ধু আবু সুফ্য়ানের কুফরী মগজে ঢুকেনি। আলী শোকাহত অবস্থায়ই ইব্লিসের চক্রান্ত বুঝতে পারলো । সঙ্গে সঙ্গেই আলী ইব্লিসের খলিফাকে বললো “চাচা রাসূল সঃ তো কোনো পারিবারিক উত্তরাধিকারী রাজত্ব প্রতিষ্ঠা করে যান নি। তার পর মুমিনদের ইমাম ও নেতা কে হবে তা মু'মিনরা সিদ্ধান্ত নেবে। এ সমস্ত ব্যাপারে নাক গলানোর অধিকার আপনাকে কে দিলো? এ প্রস্তাব তো আপনার মগজের ফসল নয়! এতো আপনার বন্ধু শয়তান আবু সুফ্য়ানের ওয়াস্ওয়াসাহ্‌ ও কুমন্ত্রনা! আপনি তো তার বাহক মাত্র! যান, আপনার কাজে আপনি যান । রাসূলের অনুসারীরা তাদের ব্যাপারে দেখবে ।” (মোওয়াহিবুন্‌ নবুউয়াহ্‌)</p>
+<p>জৌকের মুখে চুন পড়ার মতো আব্বাস উঠে তার “মগজ” আবু সুফ্য়ানের কাছে গিয়ে আলীর কথা জানালে আবু সুফ্য়ান্‌ দু'হাতে তার মাথার চুল ছিড়ে বলেছিলো “সর্বনাশ! আলীর বোকামীর ফলে বনি তাইম্‌ ও আদীর বেটারা (আবু বকর ও উমর উক্ত গোত্রের) রাজত নিয়ে নিবে ।”</p>
+<p>এ ধরণের ভাঙ্গনের মধ্যেই কৌরেশী মাদানী বা মুহাজির আনসারের মধ্যে তিক্ত বচসা ও বিবাদের পর মাদীনাহ্বাসীর অসাধারণ ত্যাগ ও ধৈর্য্য এবং ভদ্রতায় সে যাত্রা রক্তপাত এড়িয়ে আবু বকর খলিফা হয়। আলী এ বিবাদের দূরে থেকে অনেকটা নিজেকে রক্ষা করে। কৌরেশীদের দাবী যদি সত্যিই সত্যের উপর প্রতিষ্ঠিত হতো, তাহলে আলীই খলিফা হতো প্রথমে । যেহেতু কৌরেশী মাদানীর দাবীটাই বাতিল ও অন্যায়ের উপর, তাই আলী এ নিয়ে নিজেকে ইব্‌ন মাসউদ ও উসামাহ্রা কৌরেশী অ-কৌরেশী বিভক্তির জাহিলিয়্যাত দেখে হতভস্ত ও হতবাক! এ কি দেখছে তারা ইসলামের পর? এদের কান্ড দেখে তারা আরো বেশী রাসূল সঃ এর বিদায়ে শোকাভিভূত হয় । আর ভাবে, তাইতো রাসূল সঃ বার বার তাঁর আশঙ্কা প্রকাশ করে গেছেন যে, আরব গোত্রবাদীরা তাঁর মৃত্যুর পর ইয়াহুদী নাসারাদের মতো বিভক্ত হয়ে জাহেলিয়্যাতে প্রত্যাবর্তন করবে!</p>
+<p>এ অবস্থা দেখে সবার আগে বেলাল পৃথক হয়ে যায়। সে আর কৌরেশী ইমামদের নামাজ ও জামাতের আযান দেয়নি। কেন?</p>
+    </article>
+
+    <div class="chapter-nav">
+      <a href="zayd-ibn-harithah.html" class="nav-btn">
+        <span>←</span>
+        <span><span class="nav-label">পূর্ববর্তী</span>যায়েদ ইব্ন হারিসাহ</span>
+      </a>
+      <div class="nav-center">
+        <a href="index.html">📖 সূচীপত্রে ফিরুন</a>
+      </div>
+      <a href="e-bilal-ke.html" class="nav-btn primary">
+        <span><span class="nav-label">পরবর্তী</span>এ বেলাল কে?</span>
+        <span>→</span>
+      </a>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <strong style="color:#ffffff">এ হলো ইসলাম</strong> &nbsp;—&nbsp;
+  ইমামুদ্দীন মুহাম্মাদ তোয়াহা বিন হাবীব রচিত &nbsp;|&nbsp;
+  <a href="index.html">হোম</a> &nbsp;|&nbsp;
+  <a href="lekhok-porichiti.html">লেখক পরিচিতি</a>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = doc.scrollTop || document.body.scrollTop;
+  const total = doc.scrollHeight - doc.clientHeight;
+  const pct = total > 0 ? (scrolled / total) * 100 : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+});
+
+const sizes = { sm:'fs-sm', md:'fs-md', lg:'fs-lg', xl:'fs-xl' };
+function changeFont(s) {
+  const body = document.body;
+  Object.values(sizes).forEach(c => body.classList.remove(c));
+  body.classList.add(sizes[s]);
+  try { localStorage.setItem('eholoislam_fs', s); } catch(e){}
+}
+try {
+  const saved = localStorage.getItem('eholoislam_fs');
+  if (saved && sizes[saved]) changeFont(saved);
+} catch(e){}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('collapsed');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.altKey && e.key === 'ArrowRight') {
+    const next = document.querySelector('.nav-btn.primary');
+    if (next) next.click();
+  }
+  if (e.altKey && e.key === 'ArrowLeft') {
+    const prev = document.querySelector('.nav-btn:not(.primary)');
+    if (prev) prev.click();
+  }
+});
+</script>
+</body>
+</html>
